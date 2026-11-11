@@ -1,0 +1,805 @@
+<!-- =====================================================
+     RICELEAFXNET NAVBAR
+===================================================== -->
+
+<nav class="navbar navbar-expand-lg navbar-custom">
+
+    <div class="container">
+
+
+        <!-- =================================================
+             BRAND
+        ================================================== -->
+
+        <a
+            class="navbar-brand d-flex align-items-center"
+            href="{{ url_for('index') }}"
+        >
+
+            <div class="brand-logo-wrapper">
+
+                <img
+                    src="{{ url_for(
+                        'static',
+                        filename='images/logo.png'
+                    ) }}"
+                    alt="RiceLeafXNet Logo"
+                    class="navbar-logo"
+                >
+
+            </div>
+
+
+            <span class="navbar-brand-text">
+                RiceLeafXNet
+            </span>
+
+        </a>
+
+
+
+        <!-- =================================================
+             MOBILE MENU BUTTON
+        ================================================== -->
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+
+        <!-- =================================================
+             NAVIGATION
+        ================================================== -->
+
+        <div
+            class="collapse navbar-collapse"
+            id="mainNavbar"
+        >
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+
+                <!-- =================================================
+                     HOME
+                ================================================== -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link {% if request.endpoint in ['index', 'home'] %}active{% endif %}"
+                        href="{{ url_for('index') }}"
+                    >
+
+                        <i class="bi bi-house-door-fill"></i>
+
+                        <span>
+                            Home
+                        </span>
+
+                    </a>
+
+                </li>
+
+
+
+                <!-- =================================================
+                     ABOUT
+                ================================================== -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link {% if request.endpoint == 'about' %}active{% endif %}"
+                        href="{{ url_for('about') }}"
+                    >
+
+                        <i class="bi bi-info-circle-fill"></i>
+
+                        <span>
+                            About
+                        </span>
+
+                    </a>
+
+                </li>
+
+
+
+                <!-- =================================================
+                     MODELS
+                ================================================== -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link {% if request.endpoint == 'model' %}active{% endif %}"
+                        href="{{ url_for('model') }}"
+                    >
+
+                        <i class="bi bi-cpu-fill"></i>
+
+                        <span>
+                            Models
+                        </span>
+
+                    </a>
+
+                </li>
+
+
+
+                <!-- =================================================
+                     REMEDIES
+                ================================================== -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link {% if request.endpoint == 'remedies' %}active{% endif %}"
+                        href="{{ url_for('remedies') }}"
+                    >
+
+                        <i class="bi bi-heart-pulse-fill"></i>
+
+                        <span>
+                            Remedies
+                        </span>
+
+                    </a>
+
+                </li>
+
+
+
+                <!-- =================================================
+                     LOGGED-IN USER OPTIONS
+                ================================================== -->
+
+                {% if session.get('logged') %}
+
+
+                    <!-- SCAN -->
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link {% if request.endpoint == 'output' %}active{% endif %}"
+                            href="{{ url_for('output') }}"
+                        >
+
+                            <i class="bi bi-camera-fill"></i>
+
+                            <span>
+                                Scan
+                            </span>
+
+                        </a>
+
+                    </li>
+
+
+
+                    <!-- PROFILE -->
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link {% if request.endpoint == 'profile' %}active{% endif %}"
+                            href="{{ url_for('profile') }}"
+                        >
+
+                            <i class="bi bi-person-circle"></i>
+
+                            <span>
+                                Profile
+                            </span>
+
+                        </a>
+
+                    </li>
+
+
+
+                    <!-- LOGOUT -->
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link logout-link"
+                            href="{{ url_for('logout') }}"
+                        >
+
+                            <i class="bi bi-box-arrow-right"></i>
+
+                            <span>
+                                Logout
+                            </span>
+
+                        </a>
+
+                    </li>
+
+
+                {% else %}
+
+
+                    <!-- =================================================
+                         LOGIN
+                    ================================================== -->
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link {% if request.endpoint == 'login' %}active{% endif %}"
+                            href="{{ url_for('login') }}"
+                        >
+
+                            <i class="bi bi-box-arrow-in-right"></i>
+
+                            <span>
+                                Login
+                            </span>
+
+                        </a>
+
+                    </li>
+
+
+                {% endif %}
+
+
+
+                <!-- =================================================
+                     ADMIN PORTAL
+                     ONLY VISIBLE WHEN ADMIN IS LOGGED IN
+                ================================================== -->
+
+                {% if session.get('admin_logged') %}
+
+                    <li class="nav-item admin-nav-item">
+
+                        <a
+                            class="nav-link admin-link {% if request.endpoint == 'admin_dashboard' %}active{% endif %}"
+                            href="{{ url_for('admin_dashboard') }}"
+                        >
+
+                            <i class="bi bi-shield-lock-fill"></i>
+
+                            <span>
+                                Admin Portal
+                            </span>
+
+                        </a>
+
+                    </li>
+
+                {% endif %}
+
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     NAVBAR CSS
+===================================================== -->
+
+<style>
+
+
+    /* =====================================================
+       NAVBAR BASE
+    ===================================================== */
+
+    .navbar-custom {
+
+        min-height: 70px;
+
+        padding: 9px 0;
+
+        /*
+            Premium forest green with transparency.
+            This fits the new transparent hero.
+        */
+
+        background:
+            rgba(12, 61, 35, 0.94);
+
+        backdrop-filter:
+            blur(14px);
+
+        -webkit-backdrop-filter:
+            blur(14px);
+
+        border-bottom:
+            1px solid
+            rgba(255, 255, 255, 0.14);
+
+        box-shadow:
+            0 4px 20px
+            rgba(0, 0, 0, 0.18);
+
+        position: relative;
+
+        z-index: 1000;
+    }
+
+
+
+    /* =====================================================
+       BRAND
+    ===================================================== */
+
+    .navbar-custom .navbar-brand {
+
+        color: #ffffff;
+
+        text-decoration: none;
+
+        font-weight: 700;
+
+        display: flex;
+
+        align-items: center;
+
+        transition:
+            transform 0.2s ease;
+    }
+
+
+    .navbar-custom .navbar-brand:hover {
+
+        color: #ffffff;
+
+        transform:
+            translateY(-1px);
+    }
+
+
+
+    /* =====================================================
+       LOGO
+    ===================================================== */
+
+    .brand-logo-wrapper {
+
+        width: 46px;
+
+        height: 46px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        margin-right: 10px;
+
+        border-radius: 10px;
+
+        background:
+            #ffffff;
+
+        border:
+            2px solid
+            rgba(255, 255, 255, 0.75);
+
+        box-shadow:
+            0 3px 10px
+            rgba(0, 0, 0, 0.18);
+
+        overflow: hidden;
+    }
+
+
+    .navbar-logo {
+
+        width: 40px;
+
+        height: 40px;
+
+        object-fit: contain;
+
+        display: block;
+    }
+
+
+
+    /* =====================================================
+       BRAND TEXT
+    ===================================================== */
+
+    .navbar-brand-text {
+
+        font-size: 20px;
+
+        letter-spacing: 0.2px;
+
+        color: #ffffff;
+
+        font-weight: 700;
+    }
+
+
+
+    /* =====================================================
+       NAVIGATION
+    ===================================================== */
+
+    .navbar-custom .navbar-nav {
+
+        gap: 5px;
+    }
+
+
+    .navbar-custom .nav-link {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 7px;
+
+        color:
+            rgba(255, 255, 255, 0.92) !important;
+
+        font-weight: 500;
+
+        text-decoration: none;
+
+        padding:
+            9px 13px;
+
+        border-radius: 9px;
+
+        border:
+            1px solid
+            transparent;
+
+        transition:
+            background 0.2s ease,
+            color 0.2s ease,
+            transform 0.2s ease,
+            border-color 0.2s ease;
+    }
+
+
+    .navbar-custom .nav-link i {
+
+        font-size: 16px;
+
+        transition:
+            transform 0.2s ease;
+    }
+
+
+    /* =====================================================
+       HOVER
+    ===================================================== */
+
+    .navbar-custom .nav-link:hover {
+
+        color:
+            #ffffff !important;
+
+        background:
+            rgba(255, 255, 255, 0.13);
+
+        border-color:
+            rgba(255, 255, 255, 0.16);
+
+        transform:
+            translateY(-1px);
+    }
+
+
+    .navbar-custom .nav-link:hover i {
+
+        transform:
+            scale(1.08);
+    }
+
+
+
+    /* =====================================================
+       ACTIVE PAGE
+    ===================================================== */
+
+    .navbar-custom .nav-link.active {
+
+        background:
+            #f5f1df;
+
+        color:
+            #14532d !important;
+
+        border-color:
+            #f5f1df;
+
+        font-weight: 700;
+
+        box-shadow:
+            0 4px 12px
+            rgba(0, 0, 0, 0.12);
+    }
+
+
+    .navbar-custom .nav-link.active i {
+
+        color:
+            #166534;
+    }
+
+
+
+    /* =====================================================
+       LOGOUT
+    ===================================================== */
+
+    .navbar-custom .logout-link:hover {
+
+        background:
+            rgba(198, 40, 40, 0.18);
+
+        border-color:
+            rgba(255, 150, 150, 0.20);
+
+        color:
+            #ffdddd !important;
+    }
+
+
+
+    /* =====================================================
+       ADMIN PORTAL
+    ===================================================== */
+
+    .admin-nav-item {
+
+        margin-left:
+            5px;
+    }
+
+
+    .navbar-custom .admin-link {
+
+        background:
+            rgba(255, 193, 7, 0.12);
+
+        border:
+            1px solid
+            rgba(255, 193, 7, 0.40);
+
+        color:
+            #fff8dc !important;
+
+        font-weight: 600;
+    }
+
+
+    .navbar-custom .admin-link i {
+
+        color:
+            #ffd54f;
+    }
+
+
+    .navbar-custom .admin-link:hover {
+
+        background:
+            rgba(255, 193, 7, 0.22);
+
+        border-color:
+            rgba(255, 193, 7, 0.60);
+
+        color:
+            #ffffff !important;
+    }
+
+
+    .navbar-custom .admin-link.active {
+
+        background:
+            #fff3cd;
+
+        color:
+            #664d03 !important;
+
+        border-color:
+            #fff3cd;
+    }
+
+
+    .navbar-custom .admin-link.active i {
+
+        color:
+            #856404;
+    }
+
+
+
+    /* =====================================================
+       MOBILE MENU BUTTON
+    ===================================================== */
+
+    .navbar-custom .navbar-toggler {
+
+        border:
+            1px solid
+            rgba(255, 255, 255, 0.55);
+
+        padding:
+            7px 10px;
+
+        border-radius: 9px;
+
+        box-shadow: none;
+
+        background:
+            rgba(255, 255, 255, 0.06);
+    }
+
+
+    .navbar-custom .navbar-toggler:hover {
+
+        background:
+            rgba(255, 255, 255, 0.13);
+    }
+
+
+    .navbar-custom .navbar-toggler:focus {
+
+        box-shadow:
+            0 0 0 3px
+            rgba(255, 255, 255, 0.15);
+    }
+
+
+    .navbar-custom .navbar-toggler-icon {
+
+        filter:
+            brightness(0)
+            invert(1);
+    }
+
+
+
+    /* =====================================================
+       MOBILE MENU
+    ===================================================== */
+
+    @media (max-width: 991px) {
+
+
+        .navbar-custom .navbar-collapse {
+
+            margin-top:
+                12px;
+
+            padding:
+                12px;
+
+            background:
+                rgba(7, 45, 25, 0.97);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.12);
+
+            border-radius:
+                14px;
+
+            box-shadow:
+                0 10px 25px
+                rgba(0, 0, 0, 0.20);
+
+            backdrop-filter:
+                blur(15px);
+
+            -webkit-backdrop-filter:
+                blur(15px);
+        }
+
+
+        .navbar-custom .navbar-nav {
+
+            gap:
+                4px;
+        }
+
+
+        .navbar-custom .nav-link {
+
+            justify-content:
+                flex-start;
+
+            padding:
+                11px 14px;
+        }
+
+
+        .admin-nav-item {
+
+            margin-left:
+                0;
+
+            margin-top:
+                5px;
+        }
+
+    }
+
+
+
+    /* =====================================================
+       SMALL SCREEN
+    ===================================================== */
+
+    @media (max-width: 576px) {
+
+
+        .navbar-custom {
+
+            min-height:
+                64px;
+
+            padding:
+                7px 8px;
+        }
+
+
+        .brand-logo-wrapper {
+
+            width:
+                40px;
+
+            height:
+                40px;
+
+            margin-right:
+                8px;
+
+            border-radius:
+                8px;
+        }
+
+
+        .navbar-logo {
+
+            width:
+                35px;
+
+            height:
+                35px;
+        }
+
+
+        .navbar-brand-text {
+
+            font-size:
+                18px;
+        }
+
+    }
+
+
+</style>

@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Register - RiceLeafXNet</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <style>
+
+        /* ==================================================
+           AUTH PAGE
+        ================================================== */
+
+        .auth-page {
+            min-height: calc(100vh - 70px);
+
+            padding: 60px 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f4fbf5 0%,
+                    #ffffff 50%,
+                    #eef8f0 100%
+                );
+        }
+
+
+        .auth-heading {
+            text-align: center;
+
+            margin-bottom: 40px;
+        }
+
+
+        .auth-heading h1 {
+            font-size: 36px;
+
+            font-weight: 700;
+
+            color: #174d2a;
+
+            margin-bottom: 10px;
+        }
+
+
+        .auth-heading p {
+            color: #6b7280;
+
+            margin: 0;
+        }
+
+
+        /* ==================================================
+           AUTH CONTAINER
+        ================================================== */
+
+        .auth-wrapper {
+            width: 100%;
+
+            max-width: 520px;
+
+            margin: auto;
+        }
+
+
+        /* ==================================================
+           AUTH CARD
+        ================================================== */
+
+        .auth-card {
+            width: 100%;
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 20px;
+
+            padding: 38px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(0, 0, 0, 0.08);
+
+            animation:
+                fadeInUp 0.4s ease;
+        }
+
+
+        .auth-card:hover {
+            box-shadow:
+                0 16px 40px
+                rgba(0, 0, 0, 0.10);
+        }
+
+
+        /* ==================================================
+           ICON
+        ================================================== */
+
+        .auth-icon {
+            width: 58px;
+
+            height: 58px;
+
+            border-radius: 15px;
+
+            background: #e8f5e9;
+
+            color: #1b5e20;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 27px;
+
+            margin-bottom: 18px;
+        }
+
+
+        /* ==================================================
+           HEADINGS
+        ================================================== */
+
+        .auth-card h2 {
+            font-size: 27px;
+
+            font-weight: 700;
+
+            color: #1b5e20;
+
+            margin-bottom: 8px;
+        }
+
+
+        .auth-card .subtitle {
+            color: #6b7280;
+
+            font-size: 14px;
+
+            margin-bottom: 28px;
+        }
+
+
+        /* ==================================================
+           LABELS
+        ================================================== */
+
+        .auth-label {
+            display: block;
+
+            color: #374151;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            margin-bottom: 7px;
+        }
+
+
+        /* ==================================================
+           INPUTS
+        ================================================== */
+
+        .auth-input {
+            width: 100%;
+
+            height: 47px;
+
+            border:
+                1px solid #d1d5db;
+
+            border-radius: 10px;
+
+            padding:
+                10px 13px;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .auth-input:focus {
+            border-color: #4caf50;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(76, 175, 80, 0.13);
+        }
+
+
+        .auth-input.input-error {
+            border-color: #dc3545 !important;
+
+            background: #fff8f8;
+        }
+
+
+        .auth-input.input-success {
+            border-color: #198754 !important;
+
+            background: #f7fff9;
+        }
+
+
+        /* ==================================================
+           VALIDATION
+        ================================================== */
+
+        .field-message {
+            display: none;
+
+            font-size: 13px;
+
+            margin-top: 6px;
+
+            font-weight: 500;
+        }
+
+
+        .field-message.error {
+            display: block;
+
+            color: #dc3545;
+        }
+
+
+        .field-message.success {
+            display: block;
+
+            color: #198754;
+        }
+
+
+        /* ==================================================
+           PASSWORD STRENGTH
+        ================================================== */
+
+        .password-strength {
+            height: 5px;
+
+            width: 100%;
+
+            background: #e5e7eb;
+
+            border-radius: 10px;
+
+            margin-top: 8px;
+
+            overflow: hidden;
+        }
+
+
+        .password-strength-bar {
+            height: 100%;
+
+            width: 0%;
+
+            border-radius: 10px;
+
+            background: #4caf50;
+
+            transition:
+                width 0.3s ease;
+        }
+
+
+        /* ==================================================
+           BUTTONS
+        ================================================== */
+
+        .auth-main-btn {
+            width: 100%;
+
+            height: 47px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1b5e20,
+                    #43a047
+                );
+
+            transition:
+                all 0.2s ease;
+        }
+
+
+        .auth-main-btn:hover {
+            transform:
+                translateY(-1px);
+
+            box-shadow:
+                0 7px 18px
+                rgba(27, 94, 32, 0.22);
+        }
+
+
+        /* ==================================================
+           SWITCH LOGIN / REGISTER
+        ================================================== */
+
+        .switch-text {
+            text-align: center;
+
+            margin-top: 24px;
+
+            color: #6b7280;
+
+            font-size: 14px;
+        }
+
+
+        .switch-button {
+            border: none;
+
+            background: none;
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+            padding: 0;
+
+            cursor: pointer;
+        }
+
+
+        .switch-button:hover {
+            text-decoration: underline;
+        }
+
+
+        /* ==================================================
+           ERROR
+        ================================================== */
+
+        .server-error {
+            color: #dc3545;
+
+            background: #fff1f2;
+
+            border:
+                1px solid #fecdd3;
+
+            border-radius: 8px;
+
+            padding:
+                10px 12px;
+
+            font-size: 13px;
+
+            margin-bottom: 18px;
+        }
+
+
+        /* ==================================================
+           SUCCESS
+        ================================================== */
+
+        .server-success {
+            color: #198754;
+
+            background: #ecfdf3;
+
+            border:
+                1px solid #a7f3d0;
+
+            border-radius: 8px;
+
+            padding:
+                10px 12px;
+
+            font-size: 13px;
+
+            margin-bottom: 18px;
+        }
+
+
+        /* ==================================================
+           FORGOT PASSWORD
+        ================================================== */
+
+        .forgot-link {
+            color: #1b5e20;
+
+            font-size: 13px;
+
+            text-decoration: none;
+        }
+
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+
+        /* ==================================================
+           ANIMATION
+        ================================================== */
+
+        @keyframes fadeInUp {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+
+        }
+
+
+        /* ==================================================
+           RESPONSIVE
+        ================================================== */
+
+        @media (max-width: 576px) {
+
+            .auth-page {
+                padding:
+                    35px 15px;
+            }
+
+            .auth-heading h1 {
+                font-size: 27px;
+            }
+
+            .auth-card {
+                padding: 25px;
+            }
+
+            .auth-card h2 {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    {% include 'navbar.html' %}
+
+
+    <!-- ==================================================
+         AUTH PAGE
+    ================================================== -->
+
+    <section class="auth-page">
+
+
+        <div class="auth-heading">
+
+            <h1>
+                Welcome to RiceLeafXNet
+            </h1>
+
+            <p>
+                AI-powered rice leaf disease detection
+            </p>
+
+        </div>
+
+
+        <div class="auth-wrapper">
+
+
+            <!-- ==================================================
+                 LOGIN CARD
+            ================================================== -->
+
+            <div
+                class="auth-card"
+                id="loginCard">
+
+                <div class="auth-icon">
+                    🔐
+                </div>
+
+
+                <h2>
+                    Sign In
+                </h2>
+
+
+                <p class="subtitle">
+                    Login using your username or email.
+                </p>
+
+
+                {% if loginError %}
+
+                <div class="server-error">
+
+                    ❌ {{ loginError }}
+
+                </div>
+
+                {% endif %}
+
+
+                {% if success %}
+
+                <div class="server-success">
+
+                    ✓ {{ success }}
+
+                </div>
+
+                {% endif %}
+
+
+                <form
+                    action="/login"
+                    method="post">
+
+
+                    <!-- Username / Email -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="loginUsername"
+                            class="auth-label">
+
+                            Username or Email
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            class="auth-input"
+                            id="loginUsername"
+                            name="username"
+                            placeholder="Enter username or email"
+                            autocomplete="username"
+                            required>
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="loginPassword"
+                            class="auth-label">
+
+                            Password
+
+                        </label>
+
+
+                        <input
+                            type="password"
+                            class="auth-input"
+                            id="loginPassword"
+                            name="password"
+                            placeholder="Enter password"
+                            autocomplete="current-password"
+                            required>
+
+                    </div>
+
+
+                    <!-- Forgot -->
+
+                    <div class="mb-3">
+
+                        <a
+                            href="/forgot"
+                            class="forgot-link">
+
+                            Forgot Password?
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- Login -->
+
+                    <button
+                        type="submit"
+                        class="auth-main-btn">
+
+                        Login
+
+                    </button>
+
+                </form>
+
+
+                <!-- Register switch -->
+
+                <div class="switch-text">
+
+                    Don't have an account?
+
+                    <button
+                        type="button"
+                        class="switch-button"
+                        onclick="showRegister()">
+
+                        Register
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================================
+                 REGISTER CARD
+            ================================================== -->
+
+            <div
+                class="auth-card"
+                id="registerCard"
+                style="display: none;">
+
+                <div class="auth-icon">
+                    👤
+                </div>
+
+
+                <h2>
+                    Create Account
+                </h2>
+
+
+                <p class="subtitle">
+                    Register to start using RiceLeafXNet.
+                </p>
+
+
+                {% if regError %}
+
+                <div class="server-error">
+
+                    ❌ {{ regError }}
+
+                </div>
+
+                {% endif %}
+
+
+                <form
+                    action="/register"
+                    method="post"
+                    id="registerForm"
+                    novalidate>
+
+
+                    <!-- Username -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="name"
+                            class="auth-label">
+
+                            Username
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            class="auth-input"
+                            name="name"
+                            id="name"
+                            value="{{ name or '' }}"
+                            placeholder="Enter username"
+                            autocomplete="username">
+
+
+                        <div
+                            id="usernameMessage"
+                            class="field-message">
+                        </div>
+
+                    </div>
+
+
+                    <!-- Email -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="email2"
+                            class="auth-label">
+
+                            Email
+
+                        </label>
+
+
+                        <input
+                            type="email"
+                            class="auth-input"
+                            name="email"
+                            id="email2"
+                            value="{{ email or '' }}"
+                            placeholder="Enter email address"
+                            autocomplete="email">
+
+
+                        <div
+                            id="emailMessage"
+                            class="field-message">
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="newPass"
+                            class="auth-label">
+
+                            Create Password
+
+                        </label>
+
+
+                        <input
+                            type="password"
+                            class="auth-input"
+                            name="newPass"
+                            id="newPass"
+                            placeholder="Minimum 6 characters"
+                            autocomplete="new-password">
+
+
+                        <div class="password-strength">
+
+                            <div
+                                id="passwordStrengthBar"
+                                class="password-strength-bar">
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="passwordMessage"
+                            class="field-message">
+                        </div>
+
+                    </div>
+
+
+                    <!-- Confirm Password -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="confPass"
+                            class="auth-label">
+
+                            Confirm Password
+
+                        </label>
+
+
+                        <input
+                            type="password"
+                            class="auth-input"
+                            name="confPass"
+                            id="confPass"
+                            placeholder="Re-enter your password"
+                            autocomplete="new-password">
+
+
+                        <div
+                            id="confirmPasswordMessage"
+                            class="field-message">
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================================================
+                         SECURITY QUESTION
+                    ================================================== -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="securityQuestion"
+                            class="auth-label">
+
+                            Security Question
+
+                        </label>
+
+
+                        <select
+                            class="auth-input"
+                            name="security_question"
+                            id="securityQuestion"
+                            required>
+
+                            <option value="">
+                                Select a security question
+                            </option>
+
+                            {% if security_questions %}
+
+                                {% for question in security_questions %}
+
+                                <option
+                                    value="{{ question }}"
+                                    {% if security_question == question %}
+                                    selected
+                                    {% endif %}>
+
+                                    {{ question }}
+
+                                </option>
+
+                                {% endfor %}
+
+                            {% else %}
+
+                                <option
+                                    value="What was the name of your first school?">
+
+                                    What was the name of your first school?
+
+                                </option>
+
+                                <option
+                                    value="What is your favorite food?">
+
+                                    What is your favorite food?
+
+                                </option>
+
+                                <option
+                                    value="What was the name of your first pet?">
+
+                                    What was the name of your first pet?
+
+                                </option>
+
+                                <option
+                                    value="What is your favorite color?">
+
+                                    What is your favorite color?
+
+                                </option>
+
+                                <option
+                                    value="What city were you born in?">
+
+                                    What city were you born in?
+
+                                </option>
+
+                            {% endif %}
+
+                        </select>
+
+
+                        <div
+                            id="securityQuestionMessage"
+                            class="field-message">
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================================================
+                         SECURITY ANSWER
+                    ================================================== -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="securityAnswer"
+                            class="auth-label">
+
+                            Security Answer
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            class="auth-input"
+                            name="security_answer"
+                            id="securityAnswer"
+                            value="{{ security_answer or '' }}"
+                            placeholder="Enter your answer"
+                            autocomplete="off"
+                            required>
+
+
+                        <div
+                            id="securityAnswerMessage"
+                            class="field-message">
+                        </div>
+
+                    </div>
+
+
+                    <!-- Register -->
+
+                    <button
+                        type="submit"
+                        class="auth-main-btn">
+
+                        Create Account
+
+                    </button>
+
+                </form>
+
+
+                <!-- Login switch -->
+
+                <div class="switch-text">
+
+                    Already have an account?
+
+                    <button
+                        type="button"
+                        class="switch-button"
+                        onclick="showLogin()">
+
+                        Login
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script>
+
+        /* ==================================================
+           GET ELEMENTS
+        ================================================== */
+
+        const loginCard =
+            document.getElementById(
+                "loginCard"
+            );
+
+        const registerCard =
+            document.getElementById(
+                "registerCard"
+            );
+
+
+        /* ==================================================
+           SHOW LOGIN
+        ================================================== */
+
+        function showLogin() {
+
+            registerCard.style.display =
+                "none";
+
+            loginCard.style.display =
+                "block";
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+
+        /* ==================================================
+           SHOW REGISTER
+        ================================================== */
+
+        function showRegister() {
+
+            loginCard.style.display =
+                "none";
+
+            registerCard.style.display =
+                "block";
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+
+        /* ==================================================
+           REGISTRATION VALIDATION
+        ================================================== */
+
+        const registerForm =
+            document.getElementById(
+                "registerForm"
+            );
+
+        const usernameInput =
+            document.getElementById(
+                "name"
+            );
+
+        const emailInput =
+            document.getElementById(
+                "email2"
+            );
+
+        const passwordInput =
+            document.getElementById(
+                "newPass"
+            );
+
+        const confirmPasswordInput =
+            document.getElementById(
+                "confPass"
+            );
+
+        const securityQuestionInput =
+            document.getElementById(
+                "securityQuestion"
+            );
+
+        const securityAnswerInput =
+            document.getElementById(
+                "securityAnswer"
+            );
+
+
+        const usernameMessage =
+            document.getElementById(
+                "usernameMessage"
+            );
+
+        const emailMessage =
+            document.getElementById(
+                "emailMessage"
+            );
+
+        const passwordMessage =
+            document.getElementById(
+                "passwordMessage"
+            );
+
+        const confirmPasswordMessage =
+            document.getElementById(
+                "confirmPasswordMessage"
+            );
+
+        const securityQuestionMessage =
+            document.getElementById(
+                "securityQuestionMessage"
+            );
+
+        const securityAnswerMessage =
+            document.getElementById(
+                "securityAnswerMessage"
+            );
+
+        const passwordStrengthBar =
+            document.getElementById(
+                "passwordStrengthBar"
+            );
+
+
+        /* ==================================================
+           MESSAGE
+        ================================================== */
+
+        function showMessage(
+            element,
+            message,
+            type
+        ) {
+
+            element.textContent =
+                message;
+
+            element.className =
+                "field-message " + type;
+
+        }
+
+
+        /* ==================================================
+           USERNAME
+        ================================================== */
+
+        function validateUsername() {
+
+            const value =
+                usernameInput.value.trim();
+
+
+            usernameInput.classList.remove(
+                "input-error",
+                "input-success"
+            );
+
+
+            if (value === "") {
+
+                showMessage(
+                    usernameMessage,
+                    "Username is required.",
+                    "error"
+                );
+
+                usernameInput.classList.add(
+                    "input-error"
+                );
+
+                return false;
+            }
+
+
+            if (value.length < 3) {
+
+                showMessage(
+                    usernameMessage,
+                    "Username must contain at least 3 characters.",
+                    "error"
+                );
+
+                usernameInput.classList.add(
+                    "input-error"
+                );
+
+                return false;
+            }
+
+
+            showMessage(
+                usernameMessage,
+                "✓ Username looks good.",
+                "success"
+            );
+
+            usernameInput.classList.add(
+                "input-success"
+            );
+
+            return true;
+
+        }
+
+
+        /* ==================================================
+           EMAIL
+        ================================================== */
+
+        function validateEmail() {
+
+            const value =
+                emailInput.value.trim();
+
+
+            emailInput.classList.remove(
+                "input-error",
+                "input-success"
+            );
+
+
+            if (value === "") {
+
+                showMessage(
+                    emailMessage,
+                    "Email is required.",
+                    "error"
+                );
+
+                emailInput.classList.add(
+                    "input-error"
+                );
+
+                return false;
+            }
+
+
+            const pattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+            if (!pattern.test(value)) {
+
+                showMessage(
+                    emailMessage,
+                    "Please enter a valid email address.",
+                    "error"
+                );
+
+                emailInput.classList.add(
+                    "input-error"
+                );
+
+                return false;
+            }
+
+
+            showMessage(
+                emailMessage,
+                "✓ Valid email address.",
+                "success"
+            );
+
+            emailInput.classList.add(
+                "input-success"
+            );
+
+            return true;
+
+        }
+
+
+        /* ==================================================
+           PASSWORD
+        ================================================== */
+
+        function validatePassword() {
+
+            const value =
+                passwordInput.value;
+
+
+            passwordInput.classList.remove(
+                "input-error",
+                "input-success"
+            );
+
+
+            if (value === "") {
+
+                showMessage(
+                    passwordMessage,
+                    "Password is required.",
+                    "error"
+                );
+
+                passwordInput.classList.add(
+                    "input-error"
+                );
+
+                passwordStrengthBar.style.width =
+                    "0%";
+
+                return false;
+            }
+
+
+            if (value.length < 6) {
+
+                showMessage(
+                    passwordMessage,
+                    "Password must contain at least 6 characters.",
+                    "error"
+                );
+
+                passwordInput.classList.add(
+                    "input-error"
+                );
+
+                passwordStrengthBar.style.width =
+                    "25%";
+
+                return false;
+            }
+
+
+            if (value.length < 8) {
+
+                showMessage(
+                    passwordMessage,
+                    "✓ Password length is valid.",
+                    "success"
+                );
+
+                passwordInput.classList.add(
+                    "input-success"
+                );
+
+                passwordStrengthBar.style.width =
+                    "65%";
+
+                return true;
+            }
+
+
+            showMessage(
+                passwordMessage,
+                "✓ Strong password.",
+                "success"
+            );
+
+            passwordInput.classList.add(
+                "input-success"
+            );
+
+            passwordStrengthBar.style.width =
+                "100%";
+
+            return true;
+
+        }
+
+
+        /* ==================================================
+           CONFIRM PASSWORD
+        ================================================== */
+
+        function validateConfirmPassword() {
+
+            const password =
+                passwordInput.value;
+
+            const confirmPassword =
+                confirmPasswordInput.value;
+
+
+            confirmPasswordInput.classList.remove(
+                "input-error",
+                "input-success"
+            );
+
+
+            if (confirmPassword === "") {
+
+                showMessage(
+                    confirmPasswordMessage,
+                    "Please confirm your password.",
+                    "error"
+                );
+
+                confirmPasswordInput.classList.add(
+                    "input-error"
+                );
+
+                return false;
+            }
+
+
+            if (password !== confirmPassword) {
+
+                showMessage(
+                    confirmPasswordMessage,
+                    "Passwords do not match.",
+                    "error"
+                );
+
+                confirmPasswordInput.classList.add(
+                    "input-error"
+                );
+
+                return false;
+            }
+
+
+            showMessage(
+                confirmPasswordMessage,
+                "✓ Passwords match.",
+                "success"
+            );
+
+            confirmPasswordInput.classList.add(
+                "input-success"
+            );
+
+            return true;
+
+        }
+
+
+        /* ==================================================
+           SECURITY QUESTION
+        ================================================== */
+
+        function validateSecurityQuestion() {
+
+            const value =
+                securityQuestionInput.value;
+
+
+            securityQuestionInput.classList.remove(
+                "input-error",
+                "input-success"
+            );
+
+
+            if (value === "") {
+
+                showMessage(
+                    securityQuestionMessage,
+                    "Please select a security question.",
+                    "error"
+                );
+
+                securityQuestionInput.classList.add(
+                    "input-error"
+                );
+
+                return false;
+            }
+
+
+            showMessage(
+                securityQuestionMessage,
+                "✓ Security question selected.",
+                "success"
+            );
+
+            securityQuestionInput.classList.add(
+                "input-success"
+            );
+
+            return true;
+
+        }
+
+
+        /* ==================================================
+           SECURITY ANSWER
+        ================================================== */
+
+        function validateSecurityAnswer() {
+
+            const value =
+                securityAnswerInput.value.trim();
+
+
+            securityAnswerInput.classList.remove(
+                "input-error",
+                "input-success"
+            );
+
+
+            if (value === "") {
+
+                showMessage(
+                    securityAnswerMessage,
+                    "Security answer is required.",
+                    "error"
+                );
+
+                securityAnswerInput.classList.add(
+                    "input-error"
+                );
+
+                return false;
+            }
+
+
+            if (value.length < 2) {
+
+                showMessage(
+                    securityAnswerMessage,
+                    "Security answer must contain at least 2 characters.",
+                    "error"
+                );
+
+                securityAnswerInput.classList.add(
+                    "input-error"
+                );
+
+                return false;
+            }
+
+
+            showMessage(
+                securityAnswerMessage,
+                "✓ Security answer looks good.",
+                "success"
+            );
+
+            securityAnswerInput.classList.add(
+                "input-success"
+            );
+
+            return true;
+
+        }
+
+
+        /* ==================================================
+           LIVE VALIDATION
+        ================================================== */
+
+        usernameInput.addEventListener(
+            "input",
+            validateUsername
+        );
+
+
+        emailInput.addEventListener(
+            "input",
+            validateEmail
+        );
+
+
+        passwordInput.addEventListener(
+            "input",
+            function () {
+
+                validatePassword();
+
+
+                if (
+                    confirmPasswordInput.value !== ""
+                ) {
+
+                    validateConfirmPassword();
+
+                }
+
+            }
+        );
+
+
+        confirmPasswordInput.addEventListener(
+            "input",
+            validateConfirmPassword
+        );
+
+
+        securityQuestionInput.addEventListener(
+            "change",
+            validateSecurityQuestion
+        );
+
+
+        securityAnswerInput.addEventListener(
+            "input",
+            validateSecurityAnswer
+        );
+
+
+        /* ==================================================
+           SUBMIT VALIDATION
+        ================================================== */
+
+        registerForm.addEventListener(
+            "submit",
+            function (event) {
+
+                const usernameValid =
+                    validateUsername();
+
+                const emailValid =
+                    validateEmail();
+
+                const passwordValid =
+                    validatePassword();
+
+                const confirmPasswordValid =
+                    validateConfirmPassword();
+
+                const securityQuestionValid =
+                    validateSecurityQuestion();
+
+                const securityAnswerValid =
+                    validateSecurityAnswer();
+
+
+                if (
+                    !usernameValid ||
+                    !emailValid ||
+                    !passwordValid ||
+                    !confirmPasswordValid ||
+                    !securityQuestionValid ||
+                    !securityAnswerValid
+                ) {
+
+                    event.preventDefault();
+
+                    return;
+
+                }
+
+            }
+        );
+
+
+        /* ==================================================
+           IF FLASK RETURNS REGISTRATION ERROR
+           OPEN REGISTER AUTOMATICALLY
+        ================================================== */
+
+        {% if regError %}
+
+        showRegister();
+
+        {% else %}
+
+        showLogin();
+
+        {% endif %}
+
+    </script>
+
+
+    <!-- Bootstrap JS -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+env/
+venv/
+.venv/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Database and user information
+*.db
+instance/
+
+# User-uploaded files
+static/images/users/
+static/profile_images/
+
+# Temporary files
+*.log
+.DS_Store
+Thumbs.db
+
+# Backup models
+*_backup.keras
+*_previous.keras
+*_old_repaired.keras
+
+# Development scripts and temporary outputs
+output_*.png
+# Database files
+Model.db
+*.db
+instance/

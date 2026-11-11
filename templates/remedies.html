@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Remedies & Crop Care - RiceLeafXNet
+    </title>
+
+
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- Bootstrap Icons -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- RiceLeafXNet CSS -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           REMEDIES PAGE
+        ===================================================== */
+
+        .remedy-hero {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1b5e20,
+                    #43a047
+                );
+
+            color: #ffffff;
+
+            border-radius: 22px;
+
+            padding: 50px 35px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0, 0, 0, 0.12);
+
+        }
+
+
+        .remedy-hero-icon {
+
+            width: 90px;
+
+            height: 90px;
+
+            margin: 0 auto 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.18);
+
+            font-size: 45px;
+
+        }
+
+
+        .remedy-hero h1 {
+
+            font-weight: 700;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .remedy-hero p {
+
+            max-width: 850px;
+
+            margin: auto;
+
+            font-size: 17px;
+
+            line-height: 1.8;
+
+        }
+
+
+        /* =====================================================
+           SECTION TITLE
+        ===================================================== */
+
+        .remedy-section-title {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .remedy-section-title i {
+
+            color: #43a047;
+
+            margin-right: 8px;
+
+        }
+
+
+        /* =====================================================
+           RICE FIELD IMAGE
+        ===================================================== */
+
+        .field-card {
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 20px;
+
+            padding: 12px;
+
+            box-shadow:
+                0 7px 24px
+                rgba(0, 0, 0, 0.08);
+
+        }
+
+
+        .field-image {
+
+            width: 100%;
+
+            max-height: 380px;
+
+            object-fit: cover;
+
+            border-radius: 15px;
+
+        }
+
+
+        /* =====================================================
+           CARE CARDS
+        ===================================================== */
+
+        .care-card {
+
+            height: 100%;
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 6px 22px
+                rgba(0, 0, 0, 0.07);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+
+        }
+
+
+        .care-card:hover {
+
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 12px 28px
+                rgba(0, 0, 0, 0.12);
+
+        }
+
+
+        .care-icon {
+
+            width: 58px;
+
+            height: 58px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background: #e8f5e9;
+
+            color: #198754;
+
+            font-size: 29px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .care-card h5 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+        }
+
+
+        .care-card p {
+
+            color: #6c757d;
+
+            line-height: 1.7;
+
+            margin-bottom: 0;
+
+        }
+
+
+        /* =====================================================
+           PREVENTION WORKFLOW
+        ===================================================== */
+
+        .prevention-box {
+
+            background: #f8faf9;
+
+            border: 1px solid #e2e8e4;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+        }
+
+
+        .prevention-step {
+
+            height: 100%;
+
+            text-align: center;
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 16px;
+
+            padding: 25px 18px;
+
+            box-shadow:
+                0 5px 16px
+                rgba(0, 0, 0, 0.05);
+
+        }
+
+
+        .step-number {
+
+            width: 55px;
+
+            height: 55px;
+
+            margin: 0 auto 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #198754;
+
+            color: #ffffff;
+
+            font-weight: 700;
+
+            font-size: 20px;
+
+        }
+
+
+        .prevention-step i {
+
+            font-size: 34px;
+
+            color: #43a047;
+
+        }
+
+
+        .prevention-step h5 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+            margin-top: 15px;
+
+        }
+
+
+        .prevention-step p {
+
+            color: #6c757d;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =====================================================
+           DISEASE SUPPORT
+        ===================================================== */
+
+        .disease-care-card {
+
+            height: 100%;
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 17px;
+
+            padding: 22px;
+
+            box-shadow:
+                0 5px 18px
+                rgba(0, 0, 0, 0.06);
+
+        }
+
+
+        .disease-care-card i {
+
+            font-size: 32px;
+
+            color: #43a047;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .disease-care-card h6 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+        }
+
+
+        .disease-care-card p {
+
+            color: #6c757d;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =====================================================
+           AI INFORMATION
+        ===================================================== */
+
+        .ai-box {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e8f5e9,
+                    #f8fff9
+                );
+
+            border-left: 5px solid #198754;
+
+            border-radius: 15px;
+
+            padding: 28px;
+
+        }
+
+
+        .ai-box h4 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+        }
+
+
+        .ai-box p {
+
+            color: #495057;
+
+            line-height: 1.8;
+
+        }
+
+
+        /* =====================================================
+           IMPORTANT NOTE
+        ===================================================== */
+
+        .note-box {
+
+            background: #fff8e1;
+
+            border: 1px solid #ffe082;
+
+            border-radius: 15px;
+
+            padding: 22px;
+
+        }
+
+
+        .note-box i {
+
+            color: #f59e0b;
+
+            font-size: 24px;
+
+        }
+
+
+        .note-box p {
+
+            color: #665c40;
+
+            margin: 0;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 768px) {
+
+            .remedy-hero {
+
+                padding: 35px 20px;
+
+            }
+
+
+            .remedy-hero h1 {
+
+                font-size: 28px;
+
+            }
+
+
+            .remedy-hero p {
+
+                font-size: 15px;
+
+            }
+
+
+            .field-image {
+
+                max-height: 280px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+{% include 'navbar.html' %}
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<div class="container mt-5">
+
+    <div class="remedy-hero text-center">
+
+
+        <div class="remedy-hero-icon">
+
+            <i class="bi bi-flower1"></i>
+
+        </div>
+
+
+        <h1>
+
+            Rice Crop Care & Disease Prevention
+
+        </h1>
+
+
+        <p>
+
+            Practical crop-care and disease-prevention
+            practices that can be used alongside
+            RiceLeafXNet for smarter rice cultivation
+            and regular crop monitoring.
+
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     RICE FIELD IMAGE
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <div class="field-card">
+
+        <img
+            src="{{ url_for(
+                'static',
+                filename='images/bg/r1.jpg'
+            ) }}"
+            class="field-image"
+            alt="Rice field"
+        >
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     BASIC CROP CARE
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <h2 class="remedy-section-title">
+
+        <i class="bi bi-shield-check"></i>
+
+        Essential Rice Crop Care
+
+    </h2>
+
+
+    <div class="row g-4">
+
+
+        <!-- SOIL -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="care-card">
+
+
+                <div class="care-icon">
+
+                    <i class="bi bi-globe-americas"></i>
+
+                </div>
+
+
+                <h5>
+
+                    Soil Health
+
+                </h5>
+
+
+                <p>
+
+                    Maintain soil fertility through
+                    regular soil testing, suitable
+                    drainage and balanced nutrient
+                    management.
+
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- WATER -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="care-card">
+
+
+                <div class="care-icon">
+
+                    <i class="bi bi-droplet"></i>
+
+                </div>
+
+
+                <h5>
+
+                    Water Management
+
+                </h5>
+
+
+                <p>
+
+                    Maintain appropriate irrigation
+                    and avoid prolonged water stress
+                    or unnecessary overwatering.
+
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- MONITORING -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="care-card">
+
+
+                <div class="care-icon">
+
+                    <i class="bi bi-search"></i>
+
+                </div>
+
+
+                <h5>
+
+                    Regular Monitoring
+
+                </h5>
+
+
+                <p>
+
+                    Inspect rice plants and leaves
+                    regularly so unusual symptoms can
+                    be noticed as early as possible.
+
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PEST -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="care-card">
+
+
+                <div class="care-icon">
+
+                    <i class="bi bi-bug"></i>
+
+                </div>
+
+
+                <h5>
+
+                    Pest & Disease Management
+
+                </h5>
+
+
+                <p>
+
+                    Use appropriate integrated pest
+                    and disease management practices
+                    based on crop conditions.
+
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FERTILIZER -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="care-card">
+
+
+                <div class="care-icon">
+
+                    <i class="bi bi-flask"></i>
+
+                </div>
+
+
+                <h5>
+
+                    Balanced Fertilization
+
+                </h5>
+
+
+                <p>
+
+                    Apply nutrients according to soil
+                    conditions and crop requirements
+                    rather than using excessive
+                    fertilizer.
+
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- HYGIENE -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="care-card">
+
+
+                <div class="care-icon">
+
+                    <i class="bi bi-stars"></i>
+
+                </div>
+
+
+                <h5>
+
+                    Field Hygiene
+
+                </h5>
+
+
+                <p>
+
+                    Maintain clean fields and tools
+                    and manage infected plant debris
+                    appropriately.
+
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PREVENTION WORKFLOW
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <h2 class="remedy-section-title">
+
+        <i class="bi bi-arrow-repeat"></i>
+
+        Recommended Monitoring Workflow
+
+    </h2>
+
+
+    <div class="prevention-box">
+
+
+        <div class="row g-4">
+
+
+            <!-- STEP 1 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="prevention-step">
+
+
+                    <div class="step-number">
+
+                        1
+
+                    </div>
+
+
+                    <i class="bi bi-eye"></i>
+
+
+                    <h5>
+
+                        Observe
+
+                    </h5>
+
+
+                    <p>
+
+                        Regularly inspect rice plants
+                        and leaves for visible changes.
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STEP 2 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="prevention-step">
+
+
+                    <div class="step-number">
+
+                        2
+
+                    </div>
+
+
+                    <i class="bi bi-camera"></i>
+
+
+                    <h5>
+
+                        Capture
+
+                    </h5>
+
+
+                    <p>
+
+                        Capture a clear image of the
+                        affected rice leaf.
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STEP 3 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="prevention-step">
+
+
+                    <div class="step-number">
+
+                        3
+
+                    </div>
+
+
+                    <i class="bi bi-cpu"></i>
+
+
+                    <h5>
+
+                        Analyze
+
+                    </h5>
+
+
+                    <p>
+
+                        Use RiceLeafXNet to obtain an
+                        AI-based classification result.
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STEP 4 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="prevention-step">
+
+
+                    <div class="step-number">
+
+                        4
+
+                    </div>
+
+
+                    <i class="bi bi-clipboard2-check"></i>
+
+
+                    <h5>
+
+                        Act
+
+                    </h5>
+
+
+                    <p>
+
+                        Use the result as supporting
+                        information and follow suitable
+                        crop-management practices.
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     DISEASE MONITORING
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <h2 class="remedy-section-title">
+
+        <i class="bi bi-bug"></i>
+
+        Disease Monitoring
+
+    </h2>
+
+
+    <div class="row g-4">
+
+
+        <!-- BROWN SPOT -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="disease-care-card">
+
+                <i class="bi bi-circle-half"></i>
+
+                <h6>
+
+                    Brown Spot
+
+                </h6>
+
+                <p class="mb-0">
+
+                    Monitor leaves regularly for
+                    visible brown spotting and changes.
+                    Use crop-management practices
+                    appropriate to local conditions.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- HISPA -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="disease-care-card">
+
+                <i class="bi bi-bug"></i>
+
+                <h6>
+
+                    Hispa
+
+                </h6>
+
+                <p class="mb-0">
+
+                    Inspect rice foliage for signs of
+                    insect-related damage and monitor
+                    affected plants regularly.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- LEAF BLAST -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="disease-care-card">
+
+                <i class="bi bi-virus"></i>
+
+                <h6>
+
+                    Leaf Blast
+
+                </h6>
+
+                <p class="mb-0">
+
+                    Monitor leaves for unusual lesions
+                    and changes, particularly when
+                    environmental conditions favor
+                    disease development.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- NECK BLAST -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="disease-care-card">
+
+                <i class="bi bi-shield-exclamation"></i>
+
+                <h6>
+
+                    Neck Blast
+
+                </h6>
+
+                <p class="mb-0">
+
+                    Monitor crop development and
+                    inspect plants for symptoms around
+                    the neck and panicle area.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- HEALTHY -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="disease-care-card">
+
+                <i class="bi bi-heart-pulse"></i>
+
+                <h6>
+
+                    Healthy Crop
+
+                </h6>
+
+                <p class="mb-0">
+
+                    Continue regular monitoring and
+                    maintain appropriate water,
+                    nutrient and field-management
+                    practices.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     AI ASSISTED FARMING
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <div class="ai-box">
+
+
+        <h4>
+
+            <i class="bi bi-robot"></i>
+
+            Smart Farming with AI
+
+        </h4>
+
+
+        <p class="mb-0">
+
+            RiceLeafXNet can be used as an AI-assisted
+            screening tool. A user can capture or select
+            a rice leaf image, upload it to the application
+            and receive a classification result from the
+            trained deep learning models.
+
+            The result can support crop monitoring and
+            educational analysis, while actual field
+            treatment decisions should consider local
+            agricultural guidance and expert assessment.
+
+        </p>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     IMPORTANT NOTE
+===================================================== -->
+
+<div class="container mt-4 mb-5">
+
+
+    <div class="note-box d-flex gap-3 align-items-start">
+
+
+        <i class="bi bi-exclamation-triangle"></i>
+
+
+        <p>
+
+            <strong>Important:</strong>
+            RiceLeafXNet provides AI-based image
+            classification and should be treated as a
+            supporting tool rather than a replacement for
+            professional agricultural diagnosis.
+
+            If a crop shows serious or widespread symptoms,
+            consult a qualified agricultural expert before
+            applying treatment.
+
+        </p>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+{% include 'footer.html' %}
+
+
+
+<!-- Bootstrap JavaScript -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        AI Models - RiceLeafXNet
+    </title>
+
+
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- Bootstrap Icons -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- RiceLeafXNet CSS -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           MODEL PAGE
+        ===================================================== */
+
+        .model-hero {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1b5e20,
+                    #43a047
+                );
+
+            color: #ffffff;
+
+            border-radius: 22px;
+
+            padding: 50px 35px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0, 0, 0, 0.12);
+
+        }
+
+
+        .model-hero-icon {
+
+            width: 90px;
+
+            height: 90px;
+
+            margin: 0 auto 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.18);
+
+            font-size: 45px;
+
+        }
+
+
+        .model-hero h1 {
+
+            font-weight: 700;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .model-hero p {
+
+            max-width: 850px;
+
+            margin: auto;
+
+            font-size: 17px;
+
+            line-height: 1.8;
+
+        }
+
+
+        /* =====================================================
+           SECTION TITLE
+        ===================================================== */
+
+        .model-section-title {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .model-section-title i {
+
+            color: #43a047;
+
+            margin-right: 8px;
+
+        }
+
+
+        /* =====================================================
+           MODEL CARDS
+        ===================================================== */
+
+        .ai-model-card {
+
+            height: 100%;
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 6px 22px
+                rgba(0, 0, 0, 0.08);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+
+        }
+
+
+        .ai-model-card:hover {
+
+            transform: translateY(-7px);
+
+            box-shadow:
+                0 12px 30px
+                rgba(0, 0, 0, 0.13);
+
+        }
+
+
+        .model-image-container {
+
+            height: 220px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f1f8f2,
+                    #ffffff
+                );
+
+        }
+
+
+        .model-image-container img {
+
+            max-width: 100%;
+
+            max-height: 180px;
+
+            object-fit: contain;
+
+        }
+
+
+        .model-card-content {
+
+            padding: 25px;
+
+        }
+
+
+        .model-icon {
+
+            width: 55px;
+
+            height: 55px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: #e8f5e9;
+
+            color: #198754;
+
+            font-size: 28px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .model-card-content h3 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+        }
+
+
+        .model-card-content p {
+
+            color: #6c757d;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =====================================================
+           MODEL INFORMATION
+        ===================================================== */
+
+        .info-card {
+
+            height: 100%;
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 6px 20px
+                rgba(0, 0, 0, 0.07);
+
+        }
+
+
+        .info-icon {
+
+            width: 55px;
+
+            height: 55px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: #e8f5e9;
+
+            color: #198754;
+
+            font-size: 28px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .info-card h5 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+        }
+
+
+        .info-card p {
+
+            color: #6c757d;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =====================================================
+           MODEL WORKFLOW
+        ===================================================== */
+
+        .workflow-box {
+
+            background: #f8faf9;
+
+            border: 1px solid #e2e8e4;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+        }
+
+
+        .workflow-step {
+
+            height: 100%;
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 15px;
+
+            padding: 25px 18px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 15px
+                rgba(0, 0, 0, 0.05);
+
+        }
+
+
+        .workflow-number {
+
+            width: 55px;
+
+            height: 55px;
+
+            margin: 0 auto 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #198754;
+
+            color: #ffffff;
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+        }
+
+
+        .workflow-step i {
+
+            font-size: 35px;
+
+            color: #43a047;
+
+        }
+
+
+        .workflow-step h5 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+            margin-top: 15px;
+
+        }
+
+
+        .workflow-step p {
+
+            color: #6c757d;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =====================================================
+           MODEL FEATURES
+        ===================================================== */
+
+        .feature-card {
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 16px;
+
+            padding: 22px;
+
+            height: 100%;
+
+            box-shadow:
+                0 5px 18px
+                rgba(0, 0, 0, 0.06);
+
+        }
+
+
+        .feature-card i {
+
+            font-size: 32px;
+
+            color: #43a047;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .feature-card h6 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+        }
+
+
+        .feature-card p {
+
+            color: #6c757d;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin-bottom: 0;
+
+        }
+
+
+        /* =====================================================
+           PREDICTION CLASSES
+        ===================================================== */
+
+        .class-box {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e8f5e9,
+                    #f8fff9
+                );
+
+            border-left: 5px solid #198754;
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+        }
+
+
+        .class-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin: 5px;
+
+            padding: 10px 16px;
+
+            border-radius: 25px;
+
+            background: #ffffff;
+
+            border: 1px solid #c8e6c9;
+
+            color: #1b5e20;
+
+            font-weight: 600;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 768px) {
+
+            .model-hero {
+
+                padding: 35px 20px;
+
+            }
+
+
+            .model-hero h1 {
+
+                font-size: 28px;
+
+            }
+
+
+            .model-hero p {
+
+                font-size: 15px;
+
+            }
+
+
+            .model-image-container {
+
+                height: 190px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+{% include 'navbar.html' %}
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<div class="container mt-5">
+
+    <div class="model-hero text-center">
+
+
+        <div class="model-hero-icon">
+
+            <i class="bi bi-cpu"></i>
+
+        </div>
+
+
+        <h1>
+
+            Deep Learning Models
+
+        </h1>
+
+
+        <p>
+
+            RiceLeafXNet uses deep learning and transfer
+            learning techniques to classify rice leaf
+            images. The application provides multiple
+            CNN-based architectures for image
+            classification and model comparison.
+
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MODELS USED
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <h2 class="model-section-title">
+
+        <i class="bi bi-diagram-3"></i>
+
+        Models Used in RiceLeafXNet
+
+    </h2>
+
+
+    <div class="row g-4">
+
+
+        <!-- =================================================
+             EFFICIENTNET
+        ================================================= -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="ai-model-card">
+
+
+                <div class="model-image-container">
+
+                    <img
+                        src="{{ url_for(
+                            'static',
+                            filename='images/model/efficientnet.webp'
+                        ) }}"
+                        alt="EfficientNet Model"
+                    >
+
+                </div>
+
+
+                <div class="model-card-content">
+
+
+                    <div class="model-icon">
+
+                        <i class="bi bi-lightning-charge"></i>
+
+                    </div>
+
+
+                    <h3>
+
+                        EfficientNetV2B0
+
+                    </h3>
+
+
+                    <p>
+
+                        EfficientNetV2B0 is designed to provide
+                        an effective balance between model
+                        performance and computational
+                        efficiency.
+
+                        In RiceLeafXNet, it is used as one of
+                        the deep learning models for rice leaf
+                        image classification.
+
+                    </p>
+
+
+                    <span class="badge bg-success">
+
+                        CNN
+
+                    </span>
+
+
+                    <span class="badge bg-secondary">
+
+                        Transfer Learning
+
+                    </span>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             DENSENET
+        ================================================= -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="ai-model-card">
+
+
+                <div class="model-image-container">
+
+                    <img
+                        src="{{ url_for(
+                            'static',
+                            filename='images/model/densenet.png'
+                        ) }}"
+                        alt="DenseNet Model"
+                    >
+
+                </div>
+
+
+                <div class="model-card-content">
+
+
+                    <div class="model-icon">
+
+                        <i class="bi bi-diagram-2"></i>
+
+                    </div>
+
+
+                    <h3>
+
+                        DenseNet121
+
+                    </h3>
+
+
+                    <p>
+
+                        DenseNet121 uses dense connections between
+                        network layers to encourage feature reuse
+                        and efficient information propagation.
+
+                        It is used in RiceLeafXNet to learn
+                        visual features from rice leaf images.
+
+                    </p>
+
+
+                    <span class="badge bg-success">
+
+                        CNN
+
+                    </span>
+
+
+                    <span class="badge bg-secondary">
+
+                        Transfer Learning
+
+                    </span>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             RESNET
+        ================================================= -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="ai-model-card">
+
+
+                <div class="model-image-container">
+
+                    <img
+                        src="{{ url_for(
+                            'static',
+                            filename='images/model/resnet.png'
+                        ) }}"
+                        alt="ResNet Model"
+                    >
+
+                </div>
+
+
+                <div class="model-card-content">
+
+
+                    <div class="model-icon">
+
+                        <i class="bi bi-layers"></i>
+
+                    </div>
+
+
+                    <h3>
+
+                        ResNet152
+
+                    </h3>
+
+
+                    <p>
+
+                        ResNet152 uses residual connections to
+                        support deep feature learning.
+
+                        In RiceLeafXNet, it provides another
+                        CNN-based approach for classifying
+                        rice leaf images.
+
+                    </p>
+
+
+                    <span class="badge bg-success">
+
+                        CNN
+
+                    </span>
+
+
+                    <span class="badge bg-secondary">
+
+                        Transfer Learning
+
+                    </span>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     HOW THE MODELS WORK
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <h2 class="model-section-title">
+
+        <i class="bi bi-gear-wide-connected"></i>
+
+        How the Models Work
+
+    </h2>
+
+
+    <div class="workflow-box">
+
+
+        <div class="row g-4">
+
+
+            <!-- STEP 1 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="workflow-step">
+
+
+                    <div class="workflow-number">
+
+                        1
+
+                    </div>
+
+
+                    <i class="bi bi-image"></i>
+
+
+                    <h5>
+
+                        Input Image
+
+                    </h5>
+
+
+                    <p>
+
+                        The user uploads a rice leaf
+                        image through the web application.
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STEP 2 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="workflow-step">
+
+
+                    <div class="workflow-number">
+
+                        2
+
+                    </div>
+
+
+                    <i class="bi bi-aspect-ratio"></i>
+
+
+                    <h5>
+
+                        Preprocessing
+
+                    </h5>
+
+
+                    <p>
+
+                        The image is converted to RGB
+                        and resized to the required
+                        224 × 224 input size.
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STEP 3 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="workflow-step">
+
+
+                    <div class="workflow-number">
+
+                        3
+
+                    </div>
+
+
+                    <i class="bi bi-cpu"></i>
+
+
+                    <h5>
+
+                        Model Prediction
+
+                    </h5>
+
+
+                    <p>
+
+                        The selected trained model
+                        analyzes the image and generates
+                        class probabilities.
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STEP 4 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="workflow-step">
+
+
+                    <div class="workflow-number">
+
+                        4
+
+                    </div>
+
+
+                    <i class="bi bi-clipboard2-check"></i>
+
+
+                    <h5>
+
+                        Classification
+
+                    </h5>
+
+
+                    <p>
+
+                        The highest-probability class
+                        is displayed as the prediction
+                        result.
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MODEL FEATURES
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <h2 class="model-section-title">
+
+        <i class="bi bi-stars"></i>
+
+        Model Features
+
+    </h2>
+
+
+    <div class="row g-4">
+
+
+        <!-- FEATURE 1 -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="feature-card">
+
+
+                <i class="bi bi-arrow-repeat"></i>
+
+
+                <h6>
+
+                    Transfer Learning
+
+                </h6>
+
+
+                <p>
+
+                    Pre-trained image classification
+                    architectures are adapted for the
+                    rice leaf classification task.
+
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FEATURE 2 -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="feature-card">
+
+
+                <i class="bi bi-image"></i>
+
+
+                <h6>
+
+                    Image Classification
+
+                </h6>
+
+
+                <p>
+
+                    The models process rice leaf images
+                    and classify them into supported
+                    categories.
+
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FEATURE 3 -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="feature-card">
+
+
+                <i class="bi bi-bar-chart"></i>
+
+
+                <h6>
+
+                    Probability-Based Result
+
+                </h6>
+
+
+                <p>
+
+                    Model outputs are converted into
+                    class probabilities and the predicted
+                    class is selected.
+
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FEATURE 4 -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="feature-card">
+
+
+                <i class="bi bi-layers"></i>
+
+
+                <h6>
+
+                    Multiple Architectures
+
+                </h6>
+
+
+                <p>
+
+                    RiceLeafXNet integrates EfficientNet,
+                    DenseNet and ResNet models within
+                    the same application.
+
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FEATURE 5 -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="feature-card">
+
+
+                <i class="bi bi-speedometer2"></i>
+
+
+                <h6>
+
+                    Automated Prediction
+
+                </h6>
+
+
+                <p>
+
+                    Once an image is uploaded, the
+                    classification process is performed
+                    automatically by the selected model.
+
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FEATURE 6 -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="feature-card">
+
+
+                <i class="bi bi-window-stack"></i>
+
+
+                <h6>
+
+                    Web Integration
+
+                </h6>
+
+
+                <p>
+
+                    The trained models are integrated
+                    into a Flask web application for
+                    convenient user interaction.
+
+                </p>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     SUPPORTED CLASSES
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <h2 class="model-section-title">
+
+        <i class="bi bi-flower1"></i>
+
+        Classification Classes
+
+    </h2>
+
+
+    <div class="class-box text-center">
+
+
+        <p class="text-muted">
+
+            The trained classification system contains
+            the following five rice leaf classes:
+
+        </p>
+
+
+        <span class="class-badge">
+
+            <i class="bi bi-circle-half"></i>
+
+            Brown Spot
+
+        </span>
+
+
+        <span class="class-badge">
+
+            <i class="bi bi-heart-pulse"></i>
+
+            Healthy
+
+        </span>
+
+
+        <span class="class-badge">
+
+            <i class="bi bi-bug"></i>
+
+            Hispa
+
+        </span>
+
+
+        <span class="class-badge">
+
+            <i class="bi bi-virus"></i>
+
+            Leaf Blast
+
+        </span>
+
+
+        <span class="class-badge">
+
+            <i class="bi bi-shield-exclamation"></i>
+
+            Neck Blast
+
+        </span>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     TECHNOLOGY
+===================================================== -->
+
+<div class="container mt-5 mb-5">
+
+
+    <h2 class="model-section-title">
+
+        <i class="bi bi-tools"></i>
+
+        Model Technology Stack
+
+    </h2>
+
+
+    <div class="row g-4">
+
+
+        <div class="col-md-3">
+
+            <div class="feature-card text-center">
+
+                <i class="bi bi-filetype-py"></i>
+
+                <h6>
+
+                    Python
+
+                </h6>
+
+                <p>
+
+                    Programming language used for
+                    model development and application
+                    integration.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="feature-card text-center">
+
+                <i class="bi bi-cpu"></i>
+
+                <h6>
+
+                    TensorFlow
+
+                </h6>
+
+                <p>
+
+                    Deep learning framework used for
+                    model training and inference.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="feature-card text-center">
+
+                <i class="bi bi-diagram-3"></i>
+
+                <h6>
+
+                    Keras
+
+                </h6>
+
+                <p>
+
+                    High-level deep learning API used
+                    to build and load the models.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="feature-card text-center">
+
+                <i class="bi bi-server"></i>
+
+                <h6>
+
+                    Flask
+
+                </h6>
+
+                <p>
+
+                    Web framework used to integrate
+                    trained models with the application.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+{% include 'footer.html' %}
+
+
+
+<!-- Bootstrap JavaScript -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile - RiceLeafXNet</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+    <!-- RiceLeafXNet Main CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <style>
+
+        /* =====================================================
+           PROFILE PAGE
+        ===================================================== */
+
+        .profile-page {
+            min-height: 100vh;
+            padding: 35px 0 60px;
+        }
+
+        .profile-header {
+            background: linear-gradient(
+                135deg,
+                #1b5e20,
+                #43a047
+            );
+
+            color: #ffffff;
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0, 0, 0, 0.10);
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+
+            border: 4px solid #ffffff;
+
+            background: #ffffff;
+        }
+
+        .profile-card,
+        .section-card,
+        .history-container {
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 6px 22px
+                rgba(0, 0, 0, 0.08);
+        }
+
+        .profile-card,
+        .section-card {
+            padding: 25px;
+        }
+
+        .section-title {
+            color: #1b5e20;
+
+            font-weight: 700;
+
+            margin: 0;
+        }
+
+        .stat-card {
+            background: #f8faf9;
+
+            border: 1px solid #e8ece9;
+
+            border-radius: 14px;
+
+            padding: 20px 10px;
+
+            height: 100%;
+        }
+
+        .stat-number {
+            color: #1b5e20;
+
+            font-size: 30px;
+
+            font-weight: 700;
+        }
+
+        .security-box {
+            background: #fff8e1;
+
+            border: 1px solid #ffe082;
+
+            border-radius: 12px;
+
+            padding: 20px;
+        }
+
+        .history-item {
+            background: #f8faf9;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            padding: 15px;
+
+            margin-top: 12px;
+        }
+
+        .history-item img {
+            width: 100px;
+            height: 100px;
+
+            object-fit: contain;
+
+            background: #ffffff;
+
+            border-radius: 10px;
+        }
+
+        .danger-card {
+            border: 1px solid #f5c2c7;
+
+            border-radius: 18px;
+
+            background: #fff8f8;
+
+            padding: 25px;
+        }
+
+        .security-note {
+            color: #6b7280;
+
+            font-size: 14px;
+        }
+
+        .btn {
+            border-radius: 10px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 768px) {
+
+            .profile-page {
+                padding: 20px 10px 40px;
+            }
+
+            .profile-header,
+            .profile-card,
+            .section-card,
+            .danger-card {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ===================================================== -->
+
+    {% include 'navbar.html' %}
+
+
+    <main class="profile-page">
+
+        <div class="container">
+
+
+            <!-- =================================================
+                 FLASH MESSAGES
+            ================================================= -->
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% if messages %}
+
+                    {% for category, message in messages %}
+
+                        <div
+                            class="alert alert-{{ category }} alert-dismissible fade show"
+                            role="alert">
+
+                            {{ message }}
+
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="alert">
+                            </button>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+
+
+            <!-- =================================================
+                 PROFILE HEADER
+            ================================================= -->
+
+            <div class="profile-header">
+
+                <div class="row align-items-center g-4">
+
+
+                    <!-- PROFILE IMAGE -->
+
+                    <div class="col-md-auto text-center">
+
+                        {% if user.profile_image %}
+
+                            <img
+                                src="{{ url_for(
+                                    'static',
+                                    filename='images/users/' ~ user.profile_image
+                                ) }}"
+                                alt="Profile Image"
+                                class="profile-image"
+                                onerror="
+                                    this.onerror=null;
+                                    this.src='{{ url_for(
+                                        'static',
+                                        filename='images/user.png'
+                                    ) }}';
+                                "
+                            >
+
+                        {% else %}
+
+                            <img
+                                src="{{ url_for(
+                                    'static',
+                                    filename='images/user.png'
+                                ) }}"
+                                alt="Default Profile Image"
+                                class="profile-image"
+                            >
+
+                        {% endif %}
+
+                    </div>
+
+
+
+                    <!-- USER INFORMATION -->
+
+                    <div class="col">
+
+                        <h1 class="h3 fw-bold mb-2">
+
+                            Welcome,
+                            {{ user.username }}
+
+                        </h1>
+
+
+                        <p class="mb-1">
+
+                            <i class="bi bi-envelope"></i>
+
+                            {{ user.email }}
+
+                        </p>
+
+
+                        <p class="mb-0 opacity-75">
+
+                            <i class="bi bi-shield-check"></i>
+
+                            RiceLeafXNet User Profile
+
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- EDIT PROFILE -->
+
+                    <div class="col-md-auto">
+
+                        <a
+                            href="{{ url_for('editProfile') }}"
+                            class="btn btn-light fw-semibold">
+
+                            <i class="bi bi-person-gear"></i>
+
+                            Edit Profile
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SCAN SUMMARY
+            ================================================= -->
+
+            <div class="section-card mb-4">
+
+
+                <div
+                    class="d-flex justify-content-between align-items-center mb-4">
+
+                    <h2 class="section-title h4">
+
+                        <i class="bi bi-bar-chart"></i>
+
+                        Scan Summary
+
+                    </h2>
+
+
+                    <span class="badge bg-success">
+
+                        {{ total_scans }}
+
+                        Scan{% if total_scans != 1 %}s{% endif %}
+
+                    </span>
+
+                </div>
+
+
+
+                <div class="row g-3 text-center">
+
+
+                    <!-- TOTAL SCANS -->
+
+                    <div class="col-md-4">
+
+                        <div class="stat-card">
+
+                            <div class="stat-number">
+
+                                {{ total_scans }}
+
+                            </div>
+
+                            <div class="text-muted">
+
+                                Total Scans
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- TODAY'S SCANS -->
+
+                    <div class="col-md-4">
+
+                        <div class="stat-card">
+
+                            <div class="stat-number">
+
+                                {{ today_scans }}
+
+                            </div>
+
+                            <div class="text-muted">
+
+                                Today's Scans
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- LAST RESULT -->
+
+                    <div class="col-md-4">
+
+                        <div class="stat-card">
+
+                            <div class="stat-number fs-5 mt-2">
+
+                                {% if last_scan %}
+
+                                    {{ last_scan.result }}
+
+                                {% else %}
+
+                                    None
+
+                                {% endif %}
+
+                            </div>
+
+                            <div class="text-muted">
+
+                                Last Result
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SECURITY VERIFICATION
+            ================================================= -->
+
+            <div class="section-card mb-4">
+
+
+                <div
+                    class="d-flex align-items-center gap-2 mb-2">
+
+                    <i
+                        class="bi bi-shield-lock fs-4 text-success">
+                    </i>
+
+
+                    <h2 class="section-title h4 mb-0">
+
+                        Security Verification
+
+                    </h2>
+
+                </div>
+
+
+                <p class="security-note">
+
+                    Set or update your security question and answer.
+
+                    This is used for password recovery and
+                    security verification.
+
+                    Your answer is stored securely and is never
+                    displayed back to you.
+
+                </p>
+
+
+
+                <div class="security-box">
+
+
+                    <form
+                        action="{{ url_for('securitySettings') }}"
+                        method="post">
+
+
+                        <!-- SECURITY QUESTION -->
+
+                        <div class="mb-3">
+
+                            <label
+                                for="security_question"
+                                class="form-label fw-semibold">
+
+                                Security Question
+
+                            </label>
+
+
+                            <select
+                                class="form-select"
+                                id="security_question"
+                                name="security_question"
+                                required>
+
+
+                                <option value="">
+
+                                    Select a security question
+
+                                </option>
+
+
+                                {% for question in security_questions %}
+
+                                    <option
+                                        value="{{ question }}"
+
+                                        {% if user.security_question == question %}
+
+                                            selected
+
+                                        {% endif %}>
+
+                                        {{ question }}
+
+                                    </option>
+
+                                {% endfor %}
+
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- SECURITY ANSWER -->
+
+                        <div class="mb-3">
+
+                            <label
+                                for="security_answer"
+                                class="form-label fw-semibold">
+
+                                Security Answer
+
+                            </label>
+
+
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="security_answer"
+                                name="security_answer"
+                                minlength="2"
+                                autocomplete="off"
+                                placeholder="Enter your security answer"
+                                required>
+
+                        </div>
+
+
+
+                        <!-- CURRENT PASSWORD -->
+
+                        <div class="mb-3">
+
+                            <label
+                                for="current_password"
+                                class="form-label fw-semibold">
+
+                                Current Password
+
+                            </label>
+
+
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="current_password"
+                                name="current_password"
+                                autocomplete="current-password"
+                                placeholder="Enter your current password"
+                                required>
+
+                        </div>
+
+
+
+                        <button
+                            class="btn btn-success"
+                            type="submit">
+
+                            <i class="bi bi-check-circle"></i>
+
+                            Save Security Settings
+
+                        </button>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CHANGE PASSWORD
+            ================================================= -->
+
+            <div class="section-card mb-4">
+
+
+                <div
+                    class="d-flex align-items-center gap-2 mb-4">
+
+                    <i
+                        class="bi bi-key fs-4 text-success">
+                    </i>
+
+
+                    <h2 class="section-title h4 mb-0">
+
+                        Change Password
+
+                    </h2>
+
+                </div>
+
+
+
+                <form
+                    action="{{ url_for('changePassword') }}"
+                    method="post">
+
+
+                    <!-- OLD PASSWORD -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="oldPass"
+                            class="form-label fw-semibold">
+
+                            Old Password
+
+                        </label>
+
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="oldPass"
+                            name="oldPass"
+                            autocomplete="current-password"
+                            required>
+
+
+                        {% if oldPassError %}
+
+                            <div class="text-danger mt-1">
+
+                                {{ oldPassError }}
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+
+                    <!-- NEW PASSWORD -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="newPass"
+                            class="form-label fw-semibold">
+
+                            New Password
+
+                        </label>
+
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="newPass"
+                            name="newPass"
+                            minlength="6"
+                            autocomplete="new-password"
+                            required>
+
+
+                        {% if newPassError %}
+
+                            <div class="text-danger mt-1">
+
+                                {{ newPassError }}
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+
+                    <!-- CONFIRM PASSWORD -->
+
+                    <div class="mb-3">
+
+                        <label
+                            for="confPass"
+                            class="form-label fw-semibold">
+
+                            Confirm New Password
+
+                        </label>
+
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="confPass"
+                            name="confPass"
+                            minlength="6"
+                            autocomplete="new-password"
+                            required>
+
+                    </div>
+
+
+
+                    <button
+                        class="btn btn-success"
+                        type="submit">
+
+                        <i class="bi bi-lock"></i>
+
+                        Change Password
+
+                    </button>
+
+
+                </form>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RESET SCAN HISTORY
+            ================================================= -->
+
+            <div class="danger-card mb-4">
+
+
+                <h2 class="h4 text-danger fw-bold">
+
+                    <i class="bi bi-trash3"></i>
+
+                    Reset Scan History
+
+                </h2>
+
+
+                <hr>
+
+
+                <p class="mb-3">
+
+                    This permanently deletes all scan history
+                    belonging to your account.
+
+                    Your current password is required for
+                    confirmation.
+
+                </p>
+
+
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#resetHistoryModal"
+
+                    {% if not history_items %}
+
+                        disabled
+
+                    {% endif %}>
+
+
+                    <i class="bi bi-trash"></i>
+
+                    Reset Scan History
+
+
+                </button>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 SCAN HISTORY
+            ================================================= -->
+
+            <div class="history-container p-4">
+
+
+                <div
+                    class="d-flex justify-content-between align-items-center mb-3">
+
+
+                    <h2 class="section-title h4 mb-0">
+
+                        <i class="bi bi-clock-history"></i>
+
+                        Scan History
+
+                    </h2>
+
+
+                    <span class="badge bg-primary">
+
+                        {{ total_scans }}
+
+                        Scan{% if total_scans != 1 %}s{% endif %}
+
+                    </span>
+
+
+                </div>
+
+
+                <hr>
+
+
+
+                {% if history_items %}
+
+
+                    {% for history in history_items %}
+
+
+                        <div class="history-item">
+
+
+                            <div
+                                class="d-flex align-items-center gap-3 flex-wrap">
+
+
+                                <!-- IMAGE -->
+
+                                <img
+                                    src="{{ history.image }}"
+                                    alt="Scanned rice leaf"
+                                    class="img-thumbnail">
+
+
+                                <!-- RESULT -->
+
+                                <div>
+
+                                    <p class="mb-1">
+
+                                        <strong>
+                                            Result:
+                                        </strong>
+
+                                        {{ history.result }}
+
+                                    </p>
+
+
+                                    <p class="mb-0 text-muted">
+
+                                        <strong>
+                                            Scan Date:
+                                        </strong>
+
+                                        {{ history.date_created }}
+
+                                    </p>
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    {% endfor %}
+
+
+                {% else %}
+
+
+                    <div class="text-center py-4">
+
+
+                        <i
+                            class="bi bi-image fs-1 text-muted">
+                        </i>
+
+
+                        <h5 class="mt-3">
+
+                            No scan history available yet.
+
+                        </h5>
+
+
+                        <p class="text-muted mb-0">
+
+                            Upload a rice leaf image to start
+                            your first scan.
+
+                        </p>
+
+
+                    </div>
+
+
+                {% endif %}
+
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         RESET HISTORY MODAL
+    ===================================================== -->
+
+    <div
+        class="modal fade"
+        id="resetHistoryModal"
+        tabindex="-1"
+        aria-labelledby="resetHistoryModalLabel"
+        aria-hidden="true">
+
+
+        <div class="modal-dialog">
+
+
+            <div class="modal-content">
+
+
+                <!-- MODAL HEADER -->
+
+                <div class="modal-header">
+
+
+                    <h5
+                        class="modal-title"
+                        id="resetHistoryModalLabel">
+
+                        <i
+                            class="bi bi-exclamation-triangle text-danger">
+                        </i>
+
+                        Confirm Reset Scan History
+
+                    </h5>
+
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- RESET FORM -->
+
+                <form
+                    action="{{ url_for('resetHistory') }}"
+                    method="post">
+
+
+                    <div class="modal-body">
+
+
+                        <div class="alert alert-warning">
+
+                            <strong>
+                                Warning:
+                            </strong>
+
+                            This action cannot be undone.
+
+                        </div>
+
+
+                        <label
+                            for="resetPassword"
+                            class="form-label fw-semibold">
+
+                            Enter your current password
+
+                        </label>
+
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="resetPassword"
+                            name="password"
+                            autocomplete="current-password"
+                            required>
+
+
+                    </div>
+
+
+
+                    <div class="modal-footer">
+
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+
+                            Cancel
+
+                        </button>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger">
+
+                            <i class="bi bi-trash3"></i>
+
+                            Confirm Reset
+
+                        </button>
+
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Bootstrap JavaScript -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+</body>
+
+</html>

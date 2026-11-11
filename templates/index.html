@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        RiceLeafXNet | AI Smart Agriculture
+    </title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+    ====================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         BOOTSTRAP ICONS
+    ====================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         MAIN CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
+        body {
+            background: #f7faf7;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+        /* =====================================================
+           HOME HERO
+        ===================================================== */
+
+        .home-hero {
+
+            position: relative;
+
+            min-height: 570px;
+
+            display: flex;
+
+            align-items: center;
+
+            overflow: hidden;
+
+            /*
+                TRANSPARENT GREEN OVERLAY
+
+                The previous version used:
+                0.96 and 0.91
+
+                Those values made the image almost invisible.
+
+                New values:
+                0.62 and 0.48
+
+                This keeps the RiceLeafXNet green branding
+                while allowing the rice-field image to remain
+                clearly visible.
+            */
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(27, 94, 32, 0.62),
+                    rgba(46, 125, 50, 0.48)
+                ),
+                url(
+                    "{{ url_for(
+                        'static',
+                        filename='images/bg/r1.jpg'
+                    ) }}"
+                );
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-repeat: no-repeat;
+
+            color: #ffffff;
+        }
+
+
+        /* =====================================================
+           HERO DECORATION
+        ===================================================== */
+
+        .home-hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+
+            height: 300px;
+
+            right: -100px;
+
+            top: -100px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.08);
+
+            pointer-events: none;
+        }
+
+
+        .home-hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 220px;
+
+            height: 220px;
+
+            left: -90px;
+
+            bottom: -90px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.07);
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+           HERO CONTENT
+        ===================================================== */
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .hero-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 8px 16px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(255, 255, 255, 0.15);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.35);
+
+            backdrop-filter: blur(5px);
+
+            -webkit-backdrop-filter: blur(5px);
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            margin-bottom: 20px;
+        }
+
+
+        .hero-badge i {
+
+            color: #dcedc8;
+
+        }
+
+
+        /* =====================================================
+           HERO TITLE
+        ===================================================== */
+
+        .home-hero h1 {
+
+            font-size: clamp(
+                38px,
+                6vw,
+                68px
+            );
+
+            font-weight: 800;
+
+            line-height: 1.08;
+
+            margin-bottom: 20px;
+
+            text-shadow:
+                0 3px 15px
+                rgba(0, 0, 0, 0.20);
+        }
+
+
+        .hero-highlight {
+
+            color: #dcedc8;
+
+        }
+
+
+        /* =====================================================
+           HERO DESCRIPTION
+        ===================================================== */
+
+        .home-hero .hero-description {
+
+            max-width: 720px;
+
+            font-size: 18px;
+
+            line-height: 1.8;
+
+            color:
+                rgba(255, 255, 255, 0.96);
+
+            margin-bottom: 30px;
+
+            text-shadow:
+                0 2px 8px
+                rgba(0, 0, 0, 0.20);
+        }
+
+
+        /* =====================================================
+           HERO BUTTONS
+        ===================================================== */
+
+        .hero-buttons {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+        }
+
+
+        .hero-primary-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            padding: 13px 24px;
+
+            border-radius: 10px;
+
+            background: #ffffff;
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .hero-primary-btn:hover {
+
+            color: #1b5e20;
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(0, 0, 0, 0.20);
+        }
+
+
+        .hero-secondary-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            padding: 13px 24px;
+
+            border-radius: 10px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.75);
+
+            background:
+                rgba(255, 255, 255, 0.08);
+
+            backdrop-filter: blur(5px);
+
+            -webkit-backdrop-filter: blur(5px);
+
+            color: #ffffff;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .hero-secondary-btn:hover {
+
+            background: #ffffff;
+
+            color: #1b5e20;
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        /* =====================================================
+           HERO SIDE CARD
+        ===================================================== */
+
+        .hero-side-card {
+
+            position: relative;
+
+            z-index: 2;
+
+            background:
+                rgba(255, 255, 255, 0.14);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.35);
+
+            border-radius: 22px;
+
+            padding: 30px;
+
+            backdrop-filter: blur(10px);
+
+            -webkit-backdrop-filter: blur(10px);
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.18);
+        }
+
+
+        .hero-leaf-icon {
+
+            width: 75px;
+
+            height: 75px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-bottom: 20px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(255, 255, 255, 0.18);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.25);
+
+            font-size: 38px;
+
+            color: #dcedc8;
+        }
+
+
+        .hero-side-card h4 {
+
+            font-weight: 700;
+
+            margin-bottom: 12px;
+
+            text-shadow:
+                0 2px 8px
+                rgba(0, 0, 0, 0.15);
+        }
+
+
+        .hero-side-card p {
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            margin-bottom: 0;
+
+            color:
+                rgba(255, 255, 255, 0.92);
+        }
+
+
+        /* =====================================================
+           COMMON SECTION
+        ===================================================== */
+
+        .home-section {
+
+            padding: 75px 0;
+        }
+
+
+        .home-section-title {
+
+            text-align: center;
+
+            color: #1b5e20;
+
+            font-weight: 800;
+
+            margin-bottom: 12px;
+        }
+
+
+        .home-section-subtitle {
+
+            max-width: 700px;
+
+            margin:
+                0 auto 40px;
+
+            text-align: center;
+
+            color: #6c757d;
+
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           STAT CARDS
+        ===================================================== */
+
+        .stat-card {
+
+            height: 100%;
+
+            padding: 28px 20px;
+
+            background: #ffffff;
+
+            border:
+                1px solid
+                #e5e7eb;
+
+            border-radius: 18px;
+
+            text-align: center;
+
+            box-shadow:
+                0 6px 22px
+                rgba(0, 0, 0, 0.06);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .stat-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            box-shadow:
+                0 12px 30px
+                rgba(0, 0, 0, 0.10);
+        }
+
+
+        .stat-icon {
+
+            width: 58px;
+
+            height: 58px;
+
+            margin:
+                0 auto 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background: #e8f5e9;
+
+            color: #198754;
+
+            font-size: 27px;
+        }
+
+
+        .stat-number {
+
+            color: #1b5e20;
+
+            font-size: 31px;
+
+            font-weight: 800;
+
+            margin-bottom: 5px;
+        }
+
+
+        .stat-label {
+
+            color: #6c757d;
+
+            font-size: 14px;
+
+            margin: 0;
+        }
+
+
+        /* =====================================================
+           FEATURE CARDS
+        ===================================================== */
+
+        .feature-card {
+
+            height: 100%;
+
+            background: #ffffff;
+
+            border:
+                1px solid
+                #e5e7eb;
+
+            border-radius: 18px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 6px 22px
+                rgba(0, 0, 0, 0.06);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .feature-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            box-shadow:
+                0 12px 30px
+                rgba(0, 0, 0, 0.10);
+        }
+
+
+        .feature-icon {
+
+            width: 58px;
+
+            height: 58px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background: #e8f5e9;
+
+            color: #198754;
+
+            font-size: 27px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .feature-card h5 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+            margin-bottom: 10px;
+        }
+
+
+        .feature-card p {
+
+            color: #6c757d;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            margin-bottom: 0;
+        }
+
+
+        /* =====================================================
+           MODEL CARDS
+        ===================================================== */
+
+        .model-card {
+
+            height: 100%;
+
+            background: #ffffff;
+
+            border:
+                1px solid
+                #e5e7eb;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            text-align: center;
+
+            box-shadow:
+                0 6px 22px
+                rgba(0, 0, 0, 0.06);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .model-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            box-shadow:
+                0 12px 30px
+                rgba(0, 0, 0, 0.10);
+        }
+
+
+        .model-number {
+
+            width: 52px;
+
+            height: 52px;
+
+            margin:
+                0 auto 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #e8f5e9;
+
+            color: #198754;
+
+            font-weight: 800;
+
+            font-size: 20px;
+        }
+
+
+        .model-card h5 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+            margin-bottom: 10px;
+        }
+
+
+        .model-card p {
+
+            color: #6c757d;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin-bottom: 0;
+        }
+
+
+        /* =====================================================
+           WORKFLOW
+        ===================================================== */
+
+        .workflow-card {
+
+            position: relative;
+
+            height: 100%;
+
+            text-align: center;
+
+            padding: 25px 20px;
+        }
+
+
+        .workflow-number {
+
+            width: 52px;
+
+            height: 52px;
+
+            margin:
+                0 auto 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #198754,
+                    #43a047
+                );
+
+            color: #ffffff;
+
+            font-weight: 800;
+
+            font-size: 19px;
+
+            box-shadow:
+                0 5px 15px
+                rgba(25, 135, 84, 0.22);
+        }
+
+
+        .workflow-card h5 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+            margin-bottom: 10px;
+        }
+
+
+        .workflow-card p {
+
+            color: #6c757d;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin-bottom: 0;
+        }
+
+
+        /* =====================================================
+           CALL TO ACTION
+        ===================================================== */
+
+        .home-cta {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 55px 30px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1b5e20,
+                    #43a047
+                );
+
+            color: #ffffff;
+
+            text-align: center;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0, 0, 0, 0.10);
+        }
+
+
+        .home-cta h2 {
+
+            font-weight: 800;
+
+            margin-bottom: 12px;
+        }
+
+
+        .home-cta p {
+
+            max-width: 650px;
+
+            margin:
+                0 auto 25px;
+
+            line-height: 1.7;
+
+            color:
+                rgba(255, 255, 255, 0.90);
+        }
+
+
+        .cta-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            padding: 13px 25px;
+
+            border-radius: 10px;
+
+            background: #ffffff;
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .cta-btn:hover {
+
+            color: #1b5e20;
+
+            background: #f1f8f2;
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 6px 18px
+                rgba(0, 0, 0, 0.15);
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 991px) {
+
+            .home-hero {
+
+                min-height: auto;
+
+                padding:
+                    80px 0;
+            }
+
+
+            .hero-side-card {
+
+                margin-top: 25px;
+            }
+
+        }
+
+
+        @media (max-width: 576px) {
+
+            .home-hero {
+
+                padding:
+                    60px 0;
+            }
+
+
+            .home-hero h1 {
+
+                font-size: 38px;
+            }
+
+
+            .home-hero .hero-description {
+
+                font-size: 15px;
+            }
+
+
+            .hero-buttons {
+
+                flex-direction: column;
+
+                align-items: stretch;
+            }
+
+
+            .hero-primary-btn,
+            .hero-secondary-btn {
+
+                justify-content: center;
+            }
+
+
+            .home-section {
+
+                padding: 55px 0;
+            }
+
+
+            .hero-side-card {
+
+                padding: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+{% include 'navbar.html' %}
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="home-hero">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+
+            <!-- =================================================
+                 HERO CONTENT
+            ================================================== -->
+
+            <div class="col-lg-8">
+
+                <div class="hero-content">
+
+
+                    <div class="hero-badge">
+
+                        <i class="bi bi-leaf-fill"></i>
+
+                        AI-Based Smart Agriculture
+
+                    </div>
+
+
+                    <h1>
+
+                        Smart Rice Leaf
+
+                        <span class="hero-highlight">
+                            Disease Detection
+                        </span>
+
+                    </h1>
+
+
+                    <p class="hero-description">
+
+                        RiceLeafXNet is an AI-powered web
+                        application designed to classify
+                        rice leaf diseases using deep learning
+                        models and image-based analysis.
+
+                    </p>
+
+
+                    <div class="hero-buttons">
+
+
+                        <a
+                            href="{{ url_for('output') }}"
+                            class="hero-primary-btn"
+                        >
+
+                            <i class="bi bi-camera-fill"></i>
+
+                            Start Scanning
+
+                        </a>
+
+
+                        <a
+                            href="{{ url_for('about') }}"
+                            class="hero-secondary-btn"
+                        >
+
+                            <i class="bi bi-info-circle"></i>
+
+                            Explore Project
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 HERO INFORMATION CARD
+            ================================================== -->
+
+            <div class="col-lg-4">
+
+                <div class="hero-side-card">
+
+
+                    <div class="hero-leaf-icon">
+
+                        <i class="bi bi-tree-fill"></i>
+
+                    </div>
+
+
+                    <h4>
+
+                        Intelligent Crop Monitoring
+
+                    </h4>
+
+
+                    <p>
+
+                        Upload a rice leaf image, select a
+                        trained deep learning model, and obtain
+                        a classification result through the
+                        RiceLeafXNet web application.
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SYSTEM OVERVIEW
+===================================================== -->
+
+<section class="home-section">
+
+    <div class="container">
+
+
+        <h2 class="home-section-title">
+
+            RiceLeafXNet at a Glance
+
+        </h2>
+
+
+        <p class="home-section-subtitle">
+
+            A deep learning based platform that combines
+            image classification, multiple neural network
+            architectures and a simple web interface for
+            rice leaf disease analysis.
+
+        </p>
+
+
+        <div class="row g-4">
+
+
+            <!-- MODELS -->
+
+            <div class="col-6 col-lg-3">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+
+                        <i class="bi bi-cpu-fill"></i>
+
+                    </div>
+
+
+                    <div class="stat-number">
+
+                        3
+
+                    </div>
+
+
+                    <p class="stat-label">
+
+                        Deep Learning Models
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CLASSES -->
+
+            <div class="col-6 col-lg-3">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+
+                        <i class="bi bi-grid-3x3-gap-fill"></i>
+
+                    </div>
+
+
+                    <div class="stat-number">
+
+                        5
+
+                    </div>
+
+
+                    <p class="stat-label">
+
+                        Rice Leaf Classes
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- IMAGE SIZE -->
+
+            <div class="col-6 col-lg-3">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+
+                        <i class="bi bi-aspect-ratio-fill"></i>
+
+                    </div>
+
+
+                    <div class="stat-number">
+
+                        224×224
+
+                    </div>
+
+
+                    <p class="stat-label">
+
+                        Input Image Size
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- WEB -->
+
+            <div class="col-6 col-lg-3">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+
+                        <i class="bi bi-globe2"></i>
+
+                    </div>
+
+
+                    <div class="stat-number">
+
+                        Flask
+
+                    </div>
+
+
+                    <p class="stat-label">
+
+                        Web Application
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     KEY FEATURES
+===================================================== -->
+
+<section class="home-section pt-0">
+
+    <div class="container">
+
+
+        <h2 class="home-section-title">
+
+            Key Features
+
+        </h2>
+
+
+        <p class="home-section-subtitle">
+
+            RiceLeafXNet provides a straightforward workflow
+            for uploading, analyzing and reviewing rice leaf
+            classification results.
+
+        </p>
+
+
+        <div class="row g-4">
+
+
+            <!-- FEATURE 1 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-camera-fill"></i>
+
+                    </div>
+
+
+                    <h5>
+
+                        Image-Based Detection
+
+                    </h5>
+
+
+                    <p>
+
+                        Upload a rice leaf image through the
+                        web interface and use it as input
+                        for AI-based classification.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FEATURE 2 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-cpu-fill"></i>
+
+                    </div>
+
+
+                    <h5>
+
+                        Multiple AI Models
+
+                    </h5>
+
+
+                    <p>
+
+                        The system provides three deep learning
+                        architectures: EfficientNetV2B0,
+                        DenseNet121 and ResNet152.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FEATURE 3 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-speedometer2"></i>
+
+                    </div>
+
+
+                    <h5>
+
+                        Fast Classification
+
+                    </h5>
+
+
+                    <p>
+
+                        The trained models process the uploaded
+                        image and return a predicted rice leaf
+                        class through the Flask application.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FEATURE 4 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-clock-history"></i>
+
+                    </div>
+
+
+                    <h5>
+
+                        Scan History
+
+                    </h5>
+
+
+                    <p>
+
+                        Logged-in users can review previous
+                        scan results through their profile
+                        and history section.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FEATURE 5 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-shield-check"></i>
+
+                    </div>
+
+
+                    <h5>
+
+                        Secure User Access
+
+                    </h5>
+
+
+                    <p>
+
+                        User authentication, profile management
+                        and security verification are integrated
+                        into the application.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FEATURE 6 -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i class="bi bi-phone-fill"></i>
+
+                    </div>
+
+
+                    <h5>
+
+                        Responsive Interface
+
+                    </h5>
+
+
+                    <p>
+
+                        The Bootstrap-based interface is designed
+                        to work across desktop, tablet and
+                        mobile screen sizes.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     DEEP LEARNING MODELS
+===================================================== -->
+
+<section class="home-section pt-0">
+
+    <div class="container">
+
+
+        <h2 class="home-section-title">
+
+            Deep Learning Models
+
+        </h2>
+
+
+        <p class="home-section-subtitle">
+
+            RiceLeafXNet includes three trained transfer
+            learning architectures for rice leaf image
+            classification.
+
+        </p>
+
+
+        <div class="row g-4">
+
+
+            <!-- EFFICIENTNET -->
+
+            <div class="col-md-4">
+
+                <div class="model-card">
+
+
+                    <div class="model-number">
+
+                        01
+
+                    </div>
+
+
+                    <h5>
+
+                        EfficientNetV2B0
+
+                    </h5>
+
+
+                    <p>
+
+                        A compact convolutional architecture
+                        used as the primary model in the
+                        current application.
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DENSENET -->
+
+            <div class="col-md-4">
+
+                <div class="model-card">
+
+
+                    <div class="model-number">
+
+                        02
+
+                    </div>
+
+
+                    <h5>
+
+                        DenseNet121
+
+                    </h5>
+
+
+                    <p>
+
+                        A densely connected convolutional
+                        network included as an alternative
+                        classification model.
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RESNET -->
+
+            <div class="col-md-4">
+
+                <div class="model-card">
+
+
+                    <div class="model-number">
+
+                        03
+
+                    </div>
+
+
+                    <h5>
+
+                        ResNet152
+
+                    </h5>
+
+
+                    <p>
+
+                        A deep residual network included
+                        for additional model-based
+                        classification.
+
+                    </p>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SUPPORTED CLASSES
+===================================================== -->
+
+<section class="home-section pt-0">
+
+    <div class="container">
+
+
+        <h2 class="home-section-title">
+
+            Supported Rice Leaf Classes
+
+        </h2>
+
+
+        <p class="home-section-subtitle">
+
+            The current classification system uses five
+            rice leaf categories.
+
+        </p>
+
+
+        <div class="row g-4">
+
+
+            <!-- BROWN SPOT -->
+
+            <div class="col-6 col-lg">
+
+                <div class="model-card">
+
+                    <div class="model-number">
+
+                        <i class="bi bi-leaf"></i>
+
+                    </div>
+
+
+                    <h5>
+
+                        Brown Spot
+
+                    </h5>
+
+
+                    <p>
+
+                        Rice leaf disease class.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- HEALTHY -->
+
+            <div class="col-6 col-lg">
+
+                <div class="model-card">
+
+                    <div class="model-number">
+
+                        <i class="bi bi-heart-pulse"></i>
+
+                    </div>
+
+
+                    <h5>
+
+                        Healthy
+
+                    </h5>
+
+
+                    <p>
+
+                        Healthy rice leaf class.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- HISPA -->
+
+            <div class="col-6 col-lg">
+
+                <div class="model-card">
+
+                    <div class="model-number">
+
+                        <i class="bi bi-bug"></i>
+
+                    </div>
+
+
+                    <h5>
+
+                        Hispa
+
+                    </h5>
+
+
+                    <p>
+
+                        Rice leaf disease class.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LEAF BLAST -->
+
+            <div class="col-6 col-lg">
+
+                <div class="model-card">
+
+                    <div class="model-number">
+
+                        <i class="bi bi-droplet"></i>
+
+                    </div>
+
+
+                    <h5>
+
+                        Leaf Blast
+
+                    </h5>
+
+
+                    <p>
+
+                        Rice leaf disease class.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- NECK BLAST -->
+
+            <div class="col-12 col-lg">
+
+                <div class="model-card">
+
+                    <div class="model-number">
+
+                        <i class="bi bi-flower1"></i>
+
+                    </div>
+
+
+                    <h5>
+
+                        Neck Blast
+
+                    </h5>
+
+
+                    <p>
+
+                        Rice disease class.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     HOW IT WORKS
+===================================================== -->
+
+<section class="home-section pt-0">
+
+    <div class="container">
+
+
+        <h2 class="home-section-title">
+
+            How RiceLeafXNet Works
+
+        </h2>
+
+
+        <p class="home-section-subtitle">
+
+            The application follows a simple image-to-result
+            workflow.
+
+        </p>
+
+
+        <div class="row g-4">
+
+
+            <!-- STEP 1 -->
+
+            <div class="col-md-4">
+
+                <div class="workflow-card">
+
+                    <div class="workflow-number">
+
+                        1
+
+                    </div>
+
+
+                    <h5>
+
+                        Upload Image
+
+                    </h5>
+
+
+                    <p>
+
+                        Select a rice leaf image from your
+                        device and upload it to the scanner.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STEP 2 -->
+
+            <div class="col-md-4">
+
+                <div class="workflow-card">
+
+                    <div class="workflow-number">
+
+                        2
+
+                    </div>
+
+
+                    <h5>
+
+                        AI Analysis
+
+                    </h5>
+
+
+                    <p>
+
+                        The selected deep learning model
+                        processes the image for classification.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STEP 3 -->
+
+            <div class="col-md-4">
+
+                <div class="workflow-card">
+
+                    <div class="workflow-number">
+
+                        3
+
+                    </div>
+
+
+                    <h5>
+
+                        View Result
+
+                    </h5>
+
+
+                    <p>
+
+                        RiceLeafXNet displays the predicted
+                        class and confidence information.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CALL TO ACTION
+===================================================== -->
+
+<section class="container mb-5">
+
+    <div class="home-cta">
+
+
+        <h2>
+
+            Ready to Analyze a Rice Leaf?
+
+        </h2>
+
+
+        <p>
+
+            Upload an image and explore the AI-powered
+            rice leaf classification system.
+
+        </p>
+
+
+        <a
+            href="{{ url_for('output') }}"
+            class="cta-btn"
+        >
+
+            <i class="bi bi-camera-fill"></i>
+
+            Start AI Scan
+
+        </a>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+{% include 'footer.html' %}
+
+
+
+<!-- =====================================================
+     BOOTSTRAP JAVASCRIPT
+===================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+
+</html>

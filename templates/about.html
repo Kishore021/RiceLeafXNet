@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        About - RiceLeafXNet
+    </title>
+
+
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- Bootstrap Icons -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- RiceLeafXNet CSS -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/styles.css') }}"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           ABOUT PAGE
+        ===================================================== */
+
+        .about-hero {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1b5e20,
+                    #43a047
+                );
+
+            color: #ffffff;
+
+            border-radius: 22px;
+
+            padding: 50px 35px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0, 0, 0, 0.12);
+
+        }
+
+
+        .about-icon {
+
+            width: 90px;
+
+            height: 90px;
+
+            margin: 0 auto 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.18);
+
+            font-size: 45px;
+
+        }
+
+
+        .about-title {
+
+            font-weight: 700;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .about-description {
+
+            max-width: 850px;
+
+            margin: auto;
+
+            font-size: 17px;
+
+            line-height: 1.8;
+
+        }
+
+
+        /* =====================================================
+           SECTION TITLES
+        ===================================================== */
+
+        .about-section-title {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .about-section-title i {
+
+            color: #43a047;
+
+            margin-right: 8px;
+
+        }
+
+
+        /* =====================================================
+           INFORMATION CARDS
+        ===================================================== */
+
+        .about-card {
+
+            height: 100%;
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 6px 22px
+                rgba(0, 0, 0, 0.07);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+
+        }
+
+
+        .about-card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 12px 28px
+                rgba(0, 0, 0, 0.12);
+
+        }
+
+
+        .about-card-icon {
+
+            width: 55px;
+
+            height: 55px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: #e8f5e9;
+
+            color: #198754;
+
+            font-size: 28px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .about-card h5 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+        }
+
+
+        .about-card p {
+
+            color: #6c757d;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* =====================================================
+           PROJECT STRUCTURE
+        ===================================================== */
+
+        .structure-box {
+
+            background: #f8faf9;
+
+            border: 1px solid #e2e8e4;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+        }
+
+
+        .structure-item {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 15px;
+
+            padding: 15px;
+
+            margin-bottom: 10px;
+
+            background: #ffffff;
+
+            border-radius: 12px;
+
+            border: 1px solid #e8ece9;
+
+        }
+
+
+        .structure-item:last-child {
+
+            margin-bottom: 0;
+
+        }
+
+
+        .structure-icon {
+
+            min-width: 45px;
+
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: #e8f5e9;
+
+            color: #198754;
+
+            font-size: 22px;
+
+        }
+
+
+        .structure-item h6 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .structure-item p {
+
+            margin: 0;
+
+            color: #6c757d;
+
+            font-size: 14px;
+
+        }
+
+
+        /* =====================================================
+           WORKFLOW
+        ===================================================== */
+
+        .workflow-card {
+
+            height: 100%;
+
+            text-align: center;
+
+            background: #ffffff;
+
+            border-radius: 18px;
+
+            padding: 25px 20px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 6px 20px
+                rgba(0, 0, 0, 0.07);
+
+        }
+
+
+        .workflow-number {
+
+            width: 55px;
+
+            height: 55px;
+
+            margin: 0 auto 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #198754;
+
+            color: #ffffff;
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+        }
+
+
+        .workflow-card h5 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+        }
+
+
+        .workflow-card p {
+
+            color: #6c757d;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =====================================================
+           MODEL SECTION
+        ===================================================== */
+
+        .model-card {
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 16px;
+
+            padding: 22px;
+
+            height: 100%;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 18px
+                rgba(0, 0, 0, 0.06);
+
+        }
+
+
+        .model-icon {
+
+            font-size: 40px;
+
+            color: #43a047;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .model-card h5 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+        }
+
+
+        .model-card p {
+
+            color: #6c757d;
+
+            font-size: 14px;
+
+            margin-bottom: 0;
+
+        }
+
+
+        /* =====================================================
+           TECHNOLOGY BADGES
+        ===================================================== */
+
+        .technology-box {
+
+            background: #ffffff;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 6px 20px
+                rgba(0, 0, 0, 0.07);
+
+        }
+
+
+        .technology-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin: 6px;
+
+            padding: 10px 16px;
+
+            border-radius: 25px;
+
+            background: #e8f5e9;
+
+            color: #1b5e20;
+
+            font-weight: 600;
+
+            border: 1px solid #c8e6c9;
+
+        }
+
+
+        /* =====================================================
+           DISEASE CARDS
+        ===================================================== */
+
+        .disease-card {
+
+            text-align: center;
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 16px;
+
+            padding: 22px 15px;
+
+            height: 100%;
+
+            box-shadow:
+                0 5px 18px
+                rgba(0, 0, 0, 0.06);
+
+        }
+
+
+        .disease-card i {
+
+            font-size: 35px;
+
+            color: #43a047;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .disease-card h6 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+        }
+
+
+        /* =====================================================
+           OBJECTIVE BOX
+        ===================================================== */
+
+        .objective-box {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e8f5e9,
+                    #f8fff9
+                );
+
+            border-left: 5px solid #198754;
+
+            border-radius: 15px;
+
+            padding: 25px;
+
+        }
+
+
+        .objective-box h4 {
+
+            color: #1b5e20;
+
+            font-weight: 700;
+
+        }
+
+
+        .objective-box p {
+
+            color: #495057;
+
+            line-height: 1.8;
+
+            margin-bottom: 0;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 768px) {
+
+            .about-hero {
+
+                padding: 35px 20px;
+
+            }
+
+            .about-title {
+
+                font-size: 28px;
+
+            }
+
+            .about-description {
+
+                font-size: 15px;
+
+            }
+
+            .structure-box {
+
+                padding: 15px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+{% include 'navbar.html' %}
+
+
+
+<!-- =====================================================
+     HERO / PROJECT INTRODUCTION
+===================================================== -->
+
+<div class="container mt-5">
+
+    <div class="about-hero text-center">
+
+
+        <div class="about-icon">
+
+            <i class="bi bi-flower1"></i>
+
+        </div>
+
+
+        <h1 class="about-title">
+
+            RiceLeafXNet
+
+        </h1>
+
+
+        <p class="about-description">
+
+            RiceLeafXNet is an AI-based smart agriculture
+            system designed for rice leaf disease
+            classification using deep learning and
+            image-based analysis.
+
+            The system allows users to upload a rice leaf
+            image and obtain an automated disease
+            classification result through trained
+            deep learning models.
+
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PROJECT OVERVIEW
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <h2 class="about-section-title">
+
+        <i class="bi bi-info-circle"></i>
+
+        Project Overview
+
+    </h2>
+
+
+    <div class="row g-4">
+
+
+        <!-- PURPOSE -->
+
+        <div class="col-md-4">
+
+            <div class="about-card">
+
+                <div class="about-card-icon">
+
+                    <i class="bi bi-bullseye"></i>
+
+                </div>
+
+
+                <h5>
+
+                    Project Purpose
+
+                </h5>
+
+
+                <p>
+
+                    The main purpose of RiceLeafXNet is to
+                    provide an AI-assisted approach for
+                    identifying diseases in rice leaves
+                    from digital images.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- IMAGE ANALYSIS -->
+
+        <div class="col-md-4">
+
+            <div class="about-card">
+
+                <div class="about-card-icon">
+
+                    <i class="bi bi-image"></i>
+
+                </div>
+
+
+                <h5>
+
+                    Image Analysis
+
+                </h5>
+
+
+                <p>
+
+                    The system accepts rice leaf images,
+                    processes the image and passes it
+                    through trained deep learning models
+                    for classification.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- WEB APPLICATION -->
+
+        <div class="col-md-4">
+
+            <div class="about-card">
+
+                <div class="about-card-icon">
+
+                    <i class="bi bi-window-stack"></i>
+
+                </div>
+
+
+                <h5>
+
+                    Web Application
+
+                </h5>
+
+
+                <p>
+
+                    A Flask-based web interface provides
+                    the user interface for image upload,
+                    prediction, authentication and
+                    prediction history.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PROJECT STRUCTURE
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <h2 class="about-section-title">
+
+        <i class="bi bi-diagram-3"></i>
+
+        Project Structure
+
+    </h2>
+
+
+    <div class="structure-box">
+
+
+        <!-- FRONTEND -->
+
+        <div class="structure-item">
+
+            <div class="structure-icon">
+
+                <i class="bi bi-display"></i>
+
+            </div>
+
+
+            <div>
+
+                <h6>
+
+                    User Interface
+
+                </h6>
+
+                <p>
+
+                    HTML, CSS, Bootstrap and JavaScript
+                    provide the web interface for login,
+                    profile, image upload, model selection,
+                    prediction and result display.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FLASK -->
+
+        <div class="structure-item">
+
+            <div class="structure-icon">
+
+                <i class="bi bi-server"></i>
+
+            </div>
+
+
+            <div>
+
+                <h6>
+
+                    Flask Application Layer
+
+                </h6>
+
+                <p>
+
+                    Flask handles application routes,
+                    authentication, user requests,
+                    image uploads, model selection,
+                    predictions and database operations.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ML -->
+
+        <div class="structure-item">
+
+            <div class="structure-icon">
+
+                <i class="bi bi-cpu"></i>
+
+            </div>
+
+
+            <div>
+
+                <h6>
+
+                    Deep Learning Layer
+
+                </h6>
+
+                <p>
+
+                    TensorFlow/Keras trained models analyze
+                    the uploaded rice leaf image and produce
+                    a disease classification result.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- MODELS -->
+
+        <div class="structure-item">
+
+            <div class="structure-icon">
+
+                <i class="bi bi-brain"></i>
+
+            </div>
+
+
+            <div>
+
+                <h6>
+
+                    Model Storage
+
+                </h6>
+
+                <p>
+
+                    Trained model files are stored inside
+                    the project's static Models directory
+                    and loaded by the prediction module.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DATABASE -->
+
+        <div class="structure-item">
+
+            <div class="structure-icon">
+
+                <i class="bi bi-database"></i>
+
+            </div>
+
+
+            <div>
+
+                <h6>
+
+                    Database Layer
+
+                </h6>
+
+                <p>
+
+                    The database stores application data
+                    such as user information and scan
+                    history.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     HOW THE PROJECT WORKS
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <h2 class="about-section-title">
+
+        <i class="bi bi-gear-wide-connected"></i>
+
+        How RiceLeafXNet Works
+
+    </h2>
+
+
+    <div class="row g-4">
+
+
+        <!-- STEP 1 -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+
+                    1
+
+                </div>
+
+
+                <i
+                    class="bi bi-person-check fs-1 text-success">
+                </i>
+
+
+                <h5 class="mt-3">
+
+                    User Login
+
+                </h5>
+
+
+                <p>
+
+                    The user logs into the application
+                    to access the rice leaf disease
+                    detection features.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- STEP 2 -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+
+                    2
+
+                </div>
+
+
+                <i
+                    class="bi bi-cloud-arrow-up fs-1 text-success">
+                </i>
+
+
+                <h5 class="mt-3">
+
+                    Upload Image
+
+                </h5>
+
+
+                <p>
+
+                    A rice leaf image is selected and
+                    uploaded through the web interface.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- STEP 3 -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+
+                    3
+
+                </div>
+
+
+                <i
+                    class="bi bi-cpu fs-1 text-success">
+                </i>
+
+
+                <h5 class="mt-3">
+
+                    AI Prediction
+
+                </h5>
+
+
+                <p>
+
+                    The selected deep learning model
+                    processes the image and predicts
+                    the disease class.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- STEP 4 -->
+
+        <div class="col-md-6 col-lg-3">
+
+            <div class="workflow-card">
+
+                <div class="workflow-number">
+
+                    4
+
+                </div>
+
+
+                <i
+                    class="bi bi-clipboard2-check fs-1 text-success">
+                </i>
+
+
+                <h5 class="mt-3">
+
+                    Result
+
+                </h5>
+
+
+                <p>
+
+                    The predicted disease and confidence
+                    information are displayed to the user
+                    and can be stored in scan history.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     DEEP LEARNING MODELS
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <h2 class="about-section-title">
+
+        <i class="bi bi-braces"></i>
+
+        Deep Learning Models
+
+    </h2>
+
+
+    <div class="row g-4">
+
+
+        <!-- EFFICIENTNET -->
+
+        <div class="col-md-4">
+
+            <div class="model-card">
+
+                <div class="model-icon">
+
+                    <i class="bi bi-lightning-charge"></i>
+
+                </div>
+
+
+                <h5>
+
+                    EfficientNet
+
+                </h5>
+
+
+                <p>
+
+                    A convolutional neural network
+                    architecture used for efficient
+                    image classification.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DENSENET -->
+
+        <div class="col-md-4">
+
+            <div class="model-card">
+
+                <div class="model-icon">
+
+                    <i class="bi bi-diagram-2"></i>
+
+                </div>
+
+
+                <h5>
+
+                    DenseNet
+
+                </h5>
+
+
+                <p>
+
+                    A densely connected CNN architecture
+                    used to extract image features for
+                    disease classification.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- RESNET -->
+
+        <div class="col-md-4">
+
+            <div class="model-card">
+
+                <div class="model-icon">
+
+                    <i class="bi bi-layers"></i>
+
+                </div>
+
+
+                <h5>
+
+                    ResNet
+
+                </h5>
+
+
+                <p>
+
+                    A residual neural network architecture
+                    used for deep image feature learning
+                    and classification.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     TECHNOLOGIES USED
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <h2 class="about-section-title">
+
+        <i class="bi bi-tools"></i>
+
+        Technologies Used
+
+    </h2>
+
+
+    <div class="technology-box text-center">
+
+
+        <span class="technology-badge">
+
+            <i class="bi bi-filetype-py"></i>
+
+            Python
+
+        </span>
+
+
+        <span class="technology-badge">
+
+            <i class="bi bi-flask"></i>
+
+            Flask
+
+        </span>
+
+
+        <span class="technology-badge">
+
+            <i class="bi bi-cpu"></i>
+
+            TensorFlow
+
+        </span>
+
+
+        <span class="technology-badge">
+
+            <i class="bi bi-diagram-3"></i>
+
+            Keras
+
+        </span>
+
+
+        <span class="technology-badge">
+
+            <i class="bi bi-filetype-html"></i>
+
+            HTML5
+
+        </span>
+
+
+        <span class="technology-badge">
+
+            <i class="bi bi-filetype-css"></i>
+
+            CSS3
+
+        </span>
+
+
+        <span class="technology-badge">
+
+            <i class="bi bi-filetype-js"></i>
+
+            JavaScript
+
+        </span>
+
+
+        <span class="technology-badge">
+
+            <i class="bi bi-bootstrap"></i>
+
+            Bootstrap
+
+        </span>
+
+
+        <span class="technology-badge">
+
+            <i class="bi bi-database"></i>
+
+            Database
+
+        </span>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     SUPPORTED DISEASES
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <h2 class="about-section-title">
+
+        <i class="bi bi-flower1"></i>
+
+        Supported Rice Leaf Classes
+
+    </h2>
+
+
+    <div class="row g-4">
+
+
+        <!-- BROWN SPOT -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="disease-card">
+
+                <i class="bi bi-circle-half"></i>
+
+                <h6>
+
+                    Brown Spot
+
+                </h6>
+
+                <p class="text-muted mb-0">
+
+                    Rice leaf disease class.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- HEALTHY -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="disease-card">
+
+                <i class="bi bi-heart-pulse"></i>
+
+                <h6>
+
+                    Healthy
+
+                </h6>
+
+                <p class="text-muted mb-0">
+
+                    Healthy rice leaf class.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- HISPA -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="disease-card">
+
+                <i class="bi bi-bug"></i>
+
+                <h6>
+
+                    Hispa
+
+                </h6>
+
+                <p class="text-muted mb-0">
+
+                    Rice leaf disease class.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- LEAF BLAST -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="disease-card">
+
+                <i class="bi bi-virus"></i>
+
+                <h6>
+
+                    Leaf Blast
+
+                </h6>
+
+                <p class="text-muted mb-0">
+
+                    Rice leaf disease class.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- NECK BLAST -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="disease-card">
+
+                <i class="bi bi-shield-exclamation"></i>
+
+                <h6>
+
+                    Neck Blast
+
+                </h6>
+
+                <p class="text-muted mb-0">
+
+                    Rice disease classification class.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PROJECT USES
+===================================================== -->
+
+<div class="container mt-5">
+
+
+    <h2 class="about-section-title">
+
+        <i class="bi bi-bullseye"></i>
+
+        Uses and Benefits
+
+    </h2>
+
+
+    <div class="row g-4">
+
+
+        <!-- EARLY DETECTION -->
+
+        <div class="col-md-6">
+
+            <div class="about-card">
+
+                <div class="about-card-icon">
+
+                    <i class="bi bi-search"></i>
+
+                </div>
+
+
+                <h5>
+
+                    AI-Assisted Detection
+
+                </h5>
+
+
+                <p>
+
+                    Helps users identify the likely rice
+                    leaf class from an uploaded image using
+                    trained deep learning models.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- EDUCATION -->
+
+        <div class="col-md-6">
+
+            <div class="about-card">
+
+                <div class="about-card-icon">
+
+                    <i class="bi bi-mortarboard"></i>
+
+                </div>
+
+
+                <h5>
+
+                    Educational Application
+
+                </h5>
+
+
+                <p>
+
+                    Can be used as an academic demonstration
+                    of computer vision, transfer learning,
+                    deep learning and Flask web deployment.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- COMPARISON -->
+
+        <div class="col-md-6">
+
+            <div class="about-card">
+
+                <div class="about-card-icon">
+
+                    <i class="bi bi-bar-chart"></i>
+
+                </div>
+
+
+                <h5>
+
+                    Model Comparison
+
+                </h5>
+
+
+                <p>
+
+                    Multiple deep learning architectures
+                    can be used within the application for
+                    image classification and comparison.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- HISTORY -->
+
+        <div class="col-md-6">
+
+            <div class="about-card">
+
+                <div class="about-card-icon">
+
+                    <i class="bi bi-clock-history"></i>
+
+                </div>
+
+
+                <h5>
+
+                    Prediction History
+
+                </h5>
+
+
+                <p>
+
+                    Authenticated users can maintain and
+                    review their previous rice leaf
+                    classification results.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PROJECT OBJECTIVE
+===================================================== -->
+
+<div class="container mt-5 mb-5">
+
+
+    <div class="objective-box">
+
+
+        <h4>
+
+            <i class="bi bi-lightbulb"></i>
+
+            Project Objective
+
+        </h4>
+
+
+        <p>
+
+            RiceLeafXNet aims to demonstrate how artificial
+            intelligence and deep learning can be integrated
+            with a web application to perform image-based
+            rice leaf disease classification.
+
+            The project combines a user-friendly Flask
+            interface with trained CNN-based models so that
+            a user can upload a rice leaf image, obtain a
+            predicted class and review the prediction result
+            through the application.
+
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+{% include 'footer.html' %}
+
+
+
+<!-- Bootstrap JavaScript -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+
+</html>
